@@ -3,10 +3,11 @@ import './Channels.css';
 
 function Channels({ id, channel }) {
     return (
-        <div chanelName='channels'>
-            <h1>
-                <span className="channels__hash"># {channel}</span>
-            </h1>
+        <div className='channels'>
+            <div className="channels__channel">
+                <span className="channels__hash">#</span>
+                <span className="channels__name"> { channel }</span>
+            </div>
         </div>
     )
 }

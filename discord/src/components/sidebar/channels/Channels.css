@@ -1,19 +1,22 @@
-/* .channels {
+.channels {
+    cursor: pointer;
+    background-color: #3A3C43;
+    color: #72767D;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+}
 
-} */
+.channels_channel {
+    cursor: pointer;
+}
 
 .channels__hash {
-    cursor: pointer;
-    color: #8E9297;
-    background-color: FFF;
+    font-size: 30px;
+    font-weight: bold;
 }
 
-.channels__hash:hover {
-    background-color: 3A3C43;
-    color: white;
-}
-
-.channels:hover > h1 {
-    color:white;
-    background-color: #3A3C43;
+.channels__name {
+    font-size: 25px;
 }

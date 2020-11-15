@@ -26,9 +26,12 @@
     justify-content: space-between;
     align-items: center;
     color: #8E9297;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 .sidebar__drop {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,3 +45,7 @@
     color: #000;
 }
 
+.sidebar_channels {
+    display: flex;
+    margin-bottom: 20px;
+}

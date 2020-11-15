@@ -20,11 +20,27 @@ function Sidebar() {
                     </div>
                     <AddIcon className='sidebar__add'/>
                 </div>
-                <div className="sideBar__channels">
-                    <Channels channel='youtube'/>
-                    <Channels />
-                    <Channels />
-                    <Channels />
+
+                <div className="sidebar__channels">
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
+                </div>
+
+                <div className="sidebar__head">
+                    <div className="sidebar__drop">
+                        <ExpandMoreIcon />
+                        <h4>Voice Channels</h4>
+                    </div>
+                    <AddIcon className='sidebar__add'/>
+                </div>
+
+                <div className="sidebar__channels">
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
+                    <Channels channel='Youtube'/>
                 </div>
             </div>
             
