@@ -1,0 +1,43 @@
+.users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    background-color: #202225;
+    color: white;
+}
+
+.me {
+    align-items: center;
+    background-color: #36393F;
+    border-radius: 15px;
+    height: 50px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50px;
+    display: flex;
+}
+
+.user {
+    background-color: white;
+    border-radius: 15px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 50px;
+}
+
+.add {
+    align-items: center;
+    background-color: #36393F;
+    border-radius: 15px;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    display: flex;
+}
+
+.verticalLine {
+    border-left: thin solid #FFFFFF;
+}

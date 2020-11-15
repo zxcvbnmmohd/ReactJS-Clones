@@ -1,0 +1,19 @@
+/* .channels {
+
+} */
+
+.channels__hash {
+    cursor: pointer;
+    color: #8E9297;
+    background-color: FFF;
+}
+
+.channels__hash:hover {
+    background-color: 3A3C43;
+    color: white;
+}
+
+.channels:hover > h1 {
+    color:white;
+    background-color: #3A3C43;
+}
