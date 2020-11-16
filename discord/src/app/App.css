@@ -3,3 +3,27 @@
     flex-direction: row;
     height: 100vh;
 }
+
+.blurple {
+    color: #7289DA;
+}
+
+.actuallyWhite {
+    color: white;
+}
+
+.greyple {
+    color: #99AAB5;
+}
+
+.notDarkBlack {
+    color: #2C2F33;
+}
+
+.notQuiteBlack {
+    color: #23272A;
+}
+
+.actuallyBlack {
+    color: black;
+}

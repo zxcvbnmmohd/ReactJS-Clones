@@ -1,0 +1,21 @@
+.message {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.message__texts {
+    margin-left: 15px;
+}
+
+.message__texts__info {
+    display: flex;
+    flex-direction: row;
+    height: 25px;
+}
+
+.message__texts__info > h6 {
+    margin-left: 10px;
+    color: #71757C;
+    line-height: 25px;
+}

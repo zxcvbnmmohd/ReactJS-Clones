@@ -1,6 +1,6 @@
 import React from 'react';
-import './Users.css';
 import AddIcon from '@material-ui/icons/Add';
+import './Users.css';
 
 function Users() {
     return (
@@ -8,9 +8,6 @@ function Users() {
             <div className="me">
                 <h5>ME</h5>
             </div>
-            <div className="user"></div>
-            <div className="user"></div>
-            <div className="user"></div>
             <div className="user"></div>
             <div className="add">
                 <AddIcon />

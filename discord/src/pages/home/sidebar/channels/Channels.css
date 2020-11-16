@@ -1,0 +1,53 @@
+.channels {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: #3A3C43;
+    color: #72767D;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    height: 25px;
+}
+
+.channels:active {
+    color: #FFF;
+}
+
+.channels:hover {
+    color: #FFF;
+}
+
+.channels__channel {
+    line-height: 20px;
+}
+
+
+.channels__hash {
+    font-size: 25px;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.channels__name {
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.channels__settings {
+    line-height: 20px;
+}
+
+.channels__settings_icon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.channels__add_icon {
+    vertical-align: middle;
+    margin-right: 10px;
+}

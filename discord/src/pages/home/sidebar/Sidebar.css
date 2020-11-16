@@ -1,10 +1,9 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    flex: .25;
+    width: 240px;
     background-color: #2F3136;
     color: white;
-    padding: 20px;
 }
 
 .sidebar__top {
@@ -13,12 +12,13 @@
     align-items: center;
     color: white;
     border-bottom: 3px solid #26282c;
-    padding-bottom: 20px;
+    padding: 15px;
+    height: 25px;
 }
 
 .sidebar__mid {
-    flex: 1;
     padding: 10px;
+    flex: 1;
 }
 
 .sidebar__head {
@@ -42,10 +42,49 @@
 }
 
 .sidebar__add:hover {
-    color: #000;
+    color: #FFF;
 }
 
 .sidebar_channels {
     display: flex;
     margin-bottom: 20px;
 }
+
+.sidebar__btm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #292B2F;
+    padding: 10px;
+}
+
+.sidebar__btm__selfie {
+    cursor: pointer;
+}
+
+ .sidebar__btm__texts {
+     flex: 1;
+     text-align: left;
+     padding-left: 10px;
+}
+
+.sidebar__btm__texts > h5 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+.sidebar__btm__texts > h6 {
+    color: #B9BBBE;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar__btm__icons {
+    color: #B8BABD;
+}
+
+.sidebar__btm__icons > .MuiSvgIcon-root {
+    padding: 2.5px;
+    cursor: pointer;
+} 
