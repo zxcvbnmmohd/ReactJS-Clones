@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { auth, googleProvider } from '../../firebase';
+import { auth, googleProvider } from '../../../../backend/configs/firebase';
+// import { auth } from '../../backend/services';
 import './Login.css';
 
 function Login() {
     const login = () => {
+
         auth.signInWithPopup(googleProvider).catch((err) => alert(err.message));
     };
 

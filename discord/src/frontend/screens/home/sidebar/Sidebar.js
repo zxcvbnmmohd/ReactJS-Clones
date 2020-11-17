@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Channels from './channels/Channels.js';
-import AddIcon from '@material-ui/icons/Add';
+
 import { Avatar } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MicIcon from '@material-ui/icons/Mic';
 // import MicOffIcon from '@material-ui/icons/MicOff';
 import HeadsetIcon from '@material-ui/icons/Headset';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { getUser } from '../../../redux/userSlice';
-import { auth } from '../../../firebase';
+
+import Channels from './channels/Channels.js';
+import { getUser } from '../../../../backend/redux/reducers/authReducer';
+import { auth } from '../../../../backend/configs/firebase';
 
 import './Sidebar.css';
 

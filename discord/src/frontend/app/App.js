@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../redux/userSlice';
-import Chat from '../pages/home/chat/Chat';
-import Users from '../pages/home/users/Users';
-import Sidebar from '../pages/home/sidebar/Sidebar';
-import Login from '../pages/login/Login';
-import { auth } from '../firebase';
-import { login, logout } from '../redux/userSlice'
+import { getUser, login, logout } from '../../backend/redux/reducers/authReducer';
+import { auth } from '../../backend/configs/firebase';
+
+import Home from '../screens/home/Home';
+import Login from '../screens/auth/login/Login';
+
 import './App.css';
 
 function App() {
@@ -33,9 +32,7 @@ function App() {
       {
         user ? (
           <>
-            <Users />
-            <Sidebar />
-            <Chat />
+            <Home />
           </>
         ) : (
             <Login />
