@@ -10,8 +10,8 @@ import HeadsetIcon from '@material-ui/icons/Headset';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import Channels from './channels/Channels.js';
-import { getUser } from '../../../../backend/redux/reducers/authReducer';
-import { auth } from '../../../../backend/configs/firebase';
+import { getUser } from '../../../../../backend/redux/reducers/authReducer';
+import { auth } from '../../../../../backend/configs/firebase';
 
 import './Sidebar.css';
 
