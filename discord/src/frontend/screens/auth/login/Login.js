@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { auth, googleProvider } from '../../../../backend/configs/firebase';
 // import { auth } from '../../backend/services';
+
 import './Login.css';
 
-function Login() {
+function Login(props) {
     const login = () => {
         auth.signInWithPopup(googleProvider).catch((err) => alert(err.message));
     };
@@ -29,10 +30,10 @@ function Login() {
                 <Button onClick={login}>Login</Button>
                 
                 <div className="login__form__register">
-                    <h5>Need an account?</h5>
+                    <h6>Need an account?</h6>
                     
                     <div className="login__form__register__button">
-                        <h5 onClick={login}>Register.</h5>
+                        <h6 className="login__toRegister" onClick={ props.toRegister }>Register.</h6>
                     </div>
                 </div>
             </div>
