@@ -4,7 +4,7 @@ import { getUser, login, logout } from '../../backend/redux/reducers/authReducer
 import { auth } from '../../backend/configs/firebase';
 
 import Home from '../screens/home/Home';
-import Login from '../screens/auth/login/Login';
+import Auth from '../screens/auth/Auth';
 
 import './App.css';
 
@@ -35,7 +35,7 @@ function App() {
             <Home />
           </>
         ) : (
-            <Login />
+            <Auth />
           )
       }
 

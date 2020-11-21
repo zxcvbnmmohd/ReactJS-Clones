@@ -1,24 +1,124 @@
 .login {
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    width: 800px;
+    /* margin-left: 20%; */
+    background-color: #37393E;
+    color: #fff;
+    box-shadow: 0px 0px 10px #000000;
+    border-radius: 5px;
+}
+
+.login__form {
     display: grid;
-    place-items: center;
-    height: 100vh;
+    flex: 0.6;
+    text-align: center;
+    place-content: center;
+    margin: 25px;
+}
+
+.login__form > p {
+    color: #B5B7BA;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.login__form > h5 {
+    color: #7389DA;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.login__textFields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.login__textFields > form {
+    flex: 1;
+}
+
+.login__textFields > form > input {
     width: 100%;
+    background: transparent;
+    border: none;
+    outline-width: 0;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #313338;
+    color: #FFFFFF;
+    height: 45px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 2px #000000;
 }
 
-.login__logo {
-    object-fit: contain;
+.login__textField__button {
+    display: none;
 }
 
-.login__logo > img {
-    height: 200px;
+.login__form__register {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    color: #B5B7BA;
 }
 
-.login > button {
-    width: 500px;
-    height: 75px;
+.login__form__register__button{
+    margin-left: 5px;
+    color: #B5B7BA;
+}
+
+.login__form__register__button > h5 {
+    margin-left: 5px;
+    color: #7389DA;
+}
+
+.login__form > button {
+    height: 50px;
+    width: 100%;
     background-color: #7B91DE;
     color: white;
     font-weight: bold;
-    font-size: 25px;
-    border-radius: 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #000000;
+}
+
+.login__qrCode {
+    display: grid;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+    flex: 0.4;
+    margin: 25px;
+}
+
+.login__qrCode > img {
+    object-fit: contain;
+    width: 200px;
+    margin-bottom: 15px;    
+}
+
+.login__qrCode > p {
+    color: #B5B7BA;
+    margin-top: 5px;
+}
+
+@media only screen and (max-width: 828px) {
+    .login {
+        width: 550px;
+        margin-left: 0;
+    }
+    .login__form {
+        flex: 1;
+    }
+    .login__qrCode {
+        display: none;
+    }
 }
