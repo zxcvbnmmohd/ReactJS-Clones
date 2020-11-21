@@ -1,14 +1,9 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { auth, googleProvider } from '../../../../backend/configs/firebase';
-// import { auth } from '../../backend/services';
 
 import './Login.css';
 
 function Login(props) {
-    const login = () => {
-        auth.signInWithPopup(googleProvider).catch((err) => alert(err.message));
-    };
 
     return (
         <div className="login">
@@ -21,13 +16,13 @@ function Login(props) {
                     <form>
                         <input placeholder='Email' />
                         <input placeholder='Password' />
-                        <button className='login__textField__button' type="submit">Send</button>
+                        <button type="submit">Send</button>
                     </form>
                 </div>
 
-                <h5 onClick={login}>Forgot your password?</h5>
+                <h5 onClick={ props.forgot }>Forgot your password?</h5>
                 
-                <Button onClick={login}>Login</Button>
+                <Button onClick={ props.login }>Login</Button>
                 
                 <div className="login__form__register">
                     <h6>Need an account?</h6>

@@ -57,9 +57,10 @@
     box-shadow: inset 0px 0px 2px #000000;
 }
 
-.login__textField__button {
+.login__textFields > form > button {
     display: none;
 }
+
 
 .login__form__register {
     display: flex;

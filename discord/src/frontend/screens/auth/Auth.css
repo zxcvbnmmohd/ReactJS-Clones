@@ -14,8 +14,3 @@
 .auth__logo > img {
     height: 50px;
 }
-
-@media only screen and (max-width: 828px) {
-    .auth {
-    }
-}

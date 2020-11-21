@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { auth, googleProvider } from '../../../backend/configs/firebase';
+// import { auth } from '../../backend/services';
 import Login from './login/Login';
 import Register from './register/Register';
 
@@ -6,6 +8,14 @@ import './Auth.css';
 
 function Auth() {
     const [toRegister, setToRegister] = useState(false);
+    const [email, setEmail] = useState();
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [dob, setDOB] = useState();
+
+    const login = () => {
+        auth.signInWithPopup(googleProvider).catch((err) => alert(err.message));
+    };
 
     return (
         <div className='auth'>
@@ -16,9 +26,15 @@ function Auth() {
             </div>
             {
                 toRegister
-                    ? <Register toLogin={ () => setToRegister(false) } />
-                    : <Login toRegister={ () => setToRegister(true) } />
-                    
+                    ? <Register
+                        register={ () => {} }
+                        toLogin={ () => setToRegister(false) }
+                        terms={ () => {} }
+                        privacy={ () => {} }/>
+                    : <Login
+                        forgot={ login } 
+                        login={ login }
+                        toRegister={ () => setToRegister(true) } />
             }
             
         </div>
