@@ -11,31 +11,28 @@ function Register(props) {
 
                 <p>We're so excited to see you again!</p>
 
-                <div className="register__textFields">
-                    <form>
-                        <input placeholder='Email' />
-                        <input placeholder='Username' />
-                        <input placeholder='Password' />
-                        <button className='register__textField__button' type="submit">Send</button>
+                <div className="register__form__textFields">
+                    <form onSubmit={(e) => props.onSubmit(e)}>
+                        <input placeholder='Username' value={props.username} onChange={(e) => props.setUsername(e)} />
+                        <input placeholder='Email' value={props.email} onChange={(e) => props.setEmail(e)} />
+                        <input placeholder='Password' value={props.password} onChange={(e) => props.setPassword(e)} />
+                        <button type="submit">Register</button>
                     </form>
                 </div>
 
-
-                <Button onClick={ props.register }>Register</Button>
-
-                <h5 className="register__toLogin" onClick={ props.toLogin }>Already have an account?</h5>
+                <h5 className="register__form__toLogin" onClick={props.toLogin}>Already have an account?</h5>
 
                 <div className="register__form__register">
                     <h6>By registering, you agree to Discord's</h6>
 
                     <div className="register__form__register__button">
-                        <h6 onClick={ props.terms }>Terms of Service</h6>
+                        <h6 onClick={props.terms}>Terms of Service</h6>
                     </div>
 
                     <h6>and</h6>
 
                     <div className="register__form__register__button">
-                        <h6 onClick={ props.privacy }>Privacy Policy.</h6>
+                        <h6 onClick={props.privacy}>Privacy Policy.</h6>
                     </div>
                 </div>
             </div>

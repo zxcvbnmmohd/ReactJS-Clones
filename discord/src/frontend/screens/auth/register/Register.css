@@ -38,11 +38,11 @@
     border-radius: 10px;
 }
 
-.register__textFields > form {
+.register__form__textFields > form {
     flex: 1;
 }
 
-.register__textFields > form > input {
+.register__form__textFields > form > input {
     width: 100%;
     background: transparent;
     border: none;
@@ -57,8 +57,20 @@
     box-shadow: inset 0px 0px 2px #000000;
 }
 
-.register__textField__button {
-    display: none;
+.register__form__textFields > form > button {
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    background-color: #7B91DE;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.register__form__toLogin {
+    cursor: pointer;
 }
 
 .register__form__register {
@@ -75,22 +87,6 @@
 .register__form__register__button > h6 {
     margin-right: 5px;
     color: #7389DA;
-}
-
-.register__form > button {
-    height: 50px;
-    width: 100%;
-    background-color: #7B91DE;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px #000000;
-    margin-top: 15px;
-}
-
-.register__toLogin {
-    cursor: pointer;
 }
 
 @media only screen and (max-width: 828px) {

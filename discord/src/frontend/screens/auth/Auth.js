@@ -8,14 +8,35 @@ import './Auth.css';
 
 function Auth() {
     const [toRegister, setToRegister] = useState(false);
-    const [email, setEmail] = useState();
     const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [dob, setDOB] = useState();
+    const [error, setError] = useState();
 
-    const login = () => {
-        auth.signInWithPopup(googleProvider).catch((err) => alert(err.message));
+    const login = (e) => {
+        e.preventDefault();
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then(res => {
+                console.log('User Logged In.');
+                if (res.user) console.log(res.user.uid);
+            })
+            .catch((err) => setError(err));
     };
+
+    const register = (e) => {
+        e.preventDefault();
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(res => {
+                console.log('User Registered');
+                if (res.user) console.log(res.user.uid);
+            })
+            .catch((err) => setError(err));
+    };
+
+    const forgot = () => { };
 
     return (
         <div className='auth'>
@@ -27,16 +48,26 @@ function Auth() {
             {
                 toRegister
                     ? <Register
-                        register={ () => {} }
-                        toLogin={ () => setToRegister(false) }
-                        terms={ () => {} }
-                        privacy={ () => {} }/>
+                        onSubmit={(e) => register(e)}
+                        username={username}
+                        email={email}
+                        password={password}
+                        setUsername={(e) => setUsername(e.target.value)}
+                        setEmail={(e) => setEmail(e.target.value)}
+                        setPassword={(e) => setPassword(e.target.value)}
+                        toLogin={() => setToRegister(false)}
+                        terms={() => { }}
+                        privacy={() => { }} />
                     : <Login
-                        forgot={ login } 
-                        login={ login }
-                        toRegister={ () => setToRegister(true) } />
+                        onSubmit={(e) => login(e)}
+                        email={email}
+                        password={password}
+                        setEmail={(e) => setEmail(e.target.value)}
+                        setPassword={(e) => setPassword(e.target.value)}
+                        forgot={forgot}
+                        toRegister={() => setToRegister(true)} />
             }
-            
+
         </div>
     )
 }

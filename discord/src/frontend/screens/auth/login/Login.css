@@ -23,14 +23,7 @@
     margin-bottom: 25px;
 }
 
-.login__form > h5 {
-    color: #7389DA;
-    text-align: left;
-    margin-top: 5px;
-    margin-bottom: 20px;
-}
-
-.login__textFields {
+.login__form__textFields {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,11 +31,11 @@
     border-radius: 10px;
 }
 
-.login__textFields > form {
+.login__form__textFields > form {
     flex: 1;
 }
 
-.login__textFields > form > input {
+.login__form__textFields > form > input {
     width: 100%;
     background: transparent;
     border: none;
@@ -57,8 +50,23 @@
     box-shadow: inset 0px 0px 2px #000000;
 }
 
-.login__textFields > form > button {
-    display: none;
+.login__form__textFields > form > h5 {
+    color: #7389DA;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login__form__textFields > form > button {
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    background-color: #7B91DE;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    outline: none;
+    /* box-shadow: 0px 0px 0px #000000; */
 }
 
 
@@ -79,19 +87,7 @@
     color: #7389DA;
 }
 
-.login__form > button {
-    height: 50px;
-    width: 100%;
-    background-color: #7B91DE;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px #000000;
-}
-
-
-.login__toRegister {
+.login__form__register__button__toRegister {
     cursor: pointer;
 }
 
@@ -118,11 +114,12 @@
 @media only screen and (max-width: 828px) {
     .login {
         width: 550px;
-        margin-left: 0;
     }
+    
     .login__form {
         flex: 1;
     }
+
     .login__qrCode {
         display: none;
     }
