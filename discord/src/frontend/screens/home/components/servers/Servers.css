@@ -1,4 +1,4 @@
-.users {
+.servers {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
     color: white;
 }
 
-.me {
+.servers__me {
     align-items: center;
     background-color: #36393F;
     border-radius: 15px;
@@ -19,7 +19,7 @@
     display: flex;
 }
 
-.user {
+.servers__server {
     background-color: white;
     border-radius: 15px;
     height: 50px;
@@ -28,7 +28,16 @@
     width: 50px;
 }
 
-.add {
+.servers__selectedServer {
+    background-color: red;
+    border-radius: 15px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 50px;
+}
+
+.servers__add {
     align-items: center;
     background-color: #36393F;
     border-radius: 15px;

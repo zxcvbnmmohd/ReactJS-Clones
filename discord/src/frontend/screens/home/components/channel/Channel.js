@@ -1,5 +1,3 @@
-//rfce
-
 import React from 'react';
 import Message from './message/Message.js';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -10,35 +8,35 @@ import RedeemIcon from '@material-ui/icons/Redeem';
 import GifIcon from '@material-ui/icons/Gif';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
-import './Chat.css';
+import './Channel.css';
 
-function Chat() {
+function Channel(props) {
     return (
-        <div className='chat'>
-            <div className="chat__head">
-                <div className="chat__head__title">
+        <div className='channel'>
+            <div className="channel__head">
+                <div className="channel__head__title">
                     <h5># general</h5>
                 </div>
-                <div className="chat__head__actions">
+                <div className="channel__head__actions">
                     <NotificationsIcon />
                     <BookmarkIcon />
                     <PeopleAltIcon />
                 </div>
             </div>
 
-            <div className="chat__messages">
+            <div className="channel__messages">
                 <Message />
                 <Message />
                 <Message />
             </div>
 
-            <div className="chat__textField">
+            <div className="channel__textField">
                 <AddCircleIcon />
                 <form>
                     <input placeholder='Message #general' />
-                    <button className='chat__textField__button' type="submit">Senmd</button>
+                    <button className='channel__textField__button' type="submit">Senmd</button>
                 </form>
-                <div className="chat__textField__options">
+                <div className="channel__textField__options">
                     <RedeemIcon />
                     <GifIcon />
                     <EmojiEmotionsIcon />
@@ -48,4 +46,4 @@ function Chat() {
     )
 }
 
-export default Chat
+export default Channel

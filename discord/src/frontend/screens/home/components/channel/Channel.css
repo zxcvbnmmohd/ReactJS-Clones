@@ -1,4 +1,4 @@
-.chat {
+.channel {
     background-color: #36393F;
     color: white;
     display: flex;
@@ -7,7 +7,7 @@
     /* padding: 20px; */
 }
 
-.chat__head {
+.channel__head {
     height: 25px;
     display: flex;
     justify-content: space-between;
@@ -17,12 +17,12 @@
     padding: 15px;
 }
 
-.chat__messages {
+.channel__messages {
     flex: 1;
     padding: 15px;
 }
 
-.chat__textField {
+.channel__textField {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,18 +38,18 @@
     padding-right: 15px;
 }
 
-.chat__textField > .MuiSvgIcon-root {
+.channel__textField > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 }
 
-.chat__textField > form {
+.channel__textField > form {
     flex: 1;
     margin-left: 15px;
 }
 
-.chat__textField > form > input {
+.channel__textField > form > input {
     width: 100%;
     background: transparent;
     border: none;
@@ -59,25 +59,25 @@
     color: white;
 }
 
-.chat__textField__button {
+.channel__textField__button {
     display: none;
 }
 
-.chat__textField__options > .MuiSvgIcon-root {
+.channel__textField__options > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 } 
 
-/* .chat__textField__box {
+/* .channel__textField__box {
 } */
 
-.chat__head__actions > .MuiSvgIcon-root {
+.channel__head__actions > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 } 
 
-.chat__head__actions > .MuiSvgIcon-root:hover {
+.channel__head__actions > .MuiSvgIcon-root:hover {
     color: #FFF;
 } 

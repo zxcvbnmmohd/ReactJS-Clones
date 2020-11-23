@@ -1,4 +1,4 @@
-.sidebar {
+.server {
     display: flex;
     flex-direction: column;
     width: 240px;
@@ -6,7 +6,7 @@
     color: white;
 }
 
-.sidebar__top {
+.server__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,12 +16,12 @@
     height: 25px;
 }
 
-.sidebar__mid {
+.server__mid {
     padding: 10px;
     flex: 1;
 }
 
-.sidebar__head {
+.server__head {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,27 +30,27 @@
     margin-bottom: 10px;
 }
 
-.sidebar__drop {
+.server__drop {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.sidebar__add {
+.server__add {
     cursor: pointer;
 }
 
-.sidebar__add:hover {
+.server__add:hover {
     color: #FFF;
 }
 
-.sidebar_channels {
+.server_channels {
     display: flex;
     margin-bottom: 20px;
 }
 
-.sidebar__btm {
+.server__btm {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,33 +58,33 @@
     padding: 10px;
 }
 
-.sidebar__btm__selfie {
+.server__btm__selfie {
     cursor: pointer;
 }
 
- .sidebar__btm__texts {
+ .server__btm__texts {
      flex: 1;
      text-align: left;
      padding-left: 10px;
 }
 
-.sidebar__btm__texts > h5 {
+.server__btm__texts > h5 {
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
 }
 
-.sidebar__btm__texts > h6 {
+.server__btm__texts > h6 {
     color: #B9BBBE;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.sidebar__btm__icons {
+.server__btm__icons {
     color: #B8BABD;
 }
 
-.sidebar__btm__icons > .MuiSvgIcon-root {
+.server__btm__icons > .MuiSvgIcon-root {
     padding: 2.5px;
     cursor: pointer;
 } 
