@@ -25,7 +25,7 @@ function Home() {
                 owner: doc.data().owner,
             })))
         ));
-        
+
         if (selectedServer != null)
             firestore.collection('servers').doc(selectedServer).onSnapshot((ds) => (
                 ds.data().type === 'voice'
@@ -49,7 +49,7 @@ function Home() {
                 currentUser={currentUser}
                 servers={servers}
                 selectedServer={selectedServer === null ? servers.first : servers.first}
-                setSelectedServer={(s) => { setSelectedServer(s) }}
+                setSelectedServer={setSelectedServer}
             />
             <Server
                 currentUser={currentUser}

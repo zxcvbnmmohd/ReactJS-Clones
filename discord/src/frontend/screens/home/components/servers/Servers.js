@@ -12,11 +12,11 @@ function Servers(props) {
 
             {
                 props.servers.map(
-                    (server) => props.selectedServer === server.serverID
+                    (server) => props.selectedServer === server
                         ? <div className="servers__selectedServer">
 
                         </div>
-                        : <div className="servers__server">
+                        : <div className="servers__server" onClick={props.setSelectedServer(server)}>
 
                         </div>
                 )
