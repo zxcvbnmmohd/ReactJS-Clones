@@ -1,70 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getUser } from '../../../backend/redux/reducers/authReducer';
-import firestore from '../../../backend/configs/firebase';
-import Servers from './components/servers/Servers';
-import Server from './components/server/Server';
-import Channel from './components/channel/Channel';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../../backend/redux/reducers/authReducer";
+import {
+  addServers,
+  setCurrentServer,
+  getServers,
+  getCurrentServer,
+} from "../../../backend/redux/reducers/serversReducer";
+import {
+  addTextChannels,
+  addVoiceChannels,
+  setCurrentChannel,
+  getTextChannels,
+  getVoiceChannels,
+  getCurrentChannel,
+} from "../../../backend/redux/reducers/channelsReducer";
+import firestore from "../../../backend/configs/firebase";
+import Servers from "./components/servers/Servers";
+import Server from "./components/server/Server";
+import Channel from "./components/channel/Channel";
 
-import './Home.css';
+import "./Home.css";
 
 function Home() {
-    const currentUser = useSelector(getUser);
+  const dispatch = useDispatch();
 
-    const [servers, setServers] = useState([]);
-    const [textChannels, setTextChannels] = useState([]);
-    const [voiceChannels, setVoiceChannels] = useState([]);
+  const currentUser = useSelector(getUser);
 
-    const [selectedServer, setSelectedServer] = useState();
-    const [selectedChannel, setSelectedChannel] = useState();
+  const servers = useSelector(getServers);
+  const currentServer = useSelector(getCurrentServer);
 
-    useEffect(() => {
-        firestore.collection('servers').onSnapshot((ds) => (
-            setServers(ds.docs.map(doc => ({
-                serverID: doc.id,
-                owner: doc.data().owner,
-            })))
-        ));
+  const textChannels = useSelector(getTextChannels);
+  const voiceChannels = useSelector(getVoiceChannels);
+  const currentChannel = useSelector(getCurrentChannel);
 
-        if (selectedServer != null)
-            firestore.collection('servers').doc(selectedServer).onSnapshot((ds) => (
-                ds.data().type === 'voice'
-                    ? setVoiceChannels(ds.docs.map(doc => ({
-                        channelID: doc.id,
-                        type: doc.data().type,
-                        users: doc.data().users,
-                    })))
-                    : setTextChannels(ds.docs.map(doc => ({
-                        channelID: doc.id,
-                        type: doc.data().type,
-                        users: doc.data().users,
-                    })))
-            ));
-    }, [])
+  //   const [servers, setServers] = useState([]);
+  //   const [textChannels, setTextChannels] = useState([]);
+  //   const [voiceChannels, setVoiceChannels] = useState([]);
 
+  //   const [selectedServer, setSelectedServer] = useState();
+  //   const [selectedChannel, setSelectedChannel] = useState();
 
-    return (
-        <div className='home'>
-            <Servers
-                currentUser={currentUser}
-                servers={servers}
-                selectedServer={selectedServer === null ? servers.first : servers.first}
-                setSelectedServer={setSelectedServer}
-            />
-            <Server
-                currentUser={currentUser}
-                selectedServer={selectedServer === null ? servers.first : selectedServer}
-                textChannels={textChannels}
-                voiceChannels={voiceChannels}
-                selectedChannel={selectedChannel}
-                setSelectedChannel={(c) => { setSelectedChannel(c) }}
-            />
-            <Channel
-                currentUser={currentUser}
-                selectedChannel={selectedChannel}
-            />
-        </div>
-    )
+  useEffect(() => {
+    const serversSnapshot = firestore.collection("servers").onSnapshot((ds) =>
+      dispatch(
+        addServers(
+          ds.docs.map((doc) => ({
+            serverID: doc.id,
+            ...doc.data(),
+          }))
+        )
+      )
+    );
+
+    // const channelsSnapshot = firestore
+    //   .collection("servers")
+    //   .doc(servers.first.serverID)
+    //   .onSnapshot((ds) =>
+    //     ds.data().type === "voice"
+    //       ? dispatch(
+    //           addVoiceChannels(
+    //             ds.docs.map((doc) => ({
+    //               channelID: doc.id,
+    //               ...doc.data(),
+    //             }))
+    //           )
+    //         )
+    //       : dispatch(
+    //           addTextChannels(
+    //             ds.docs.map((doc) => ({
+    //               channelID: doc.id,
+    //               ...doc.data(),
+    //             }))
+    //           )
+    //         )
+    //   );
+
+    // serversSnapshot.unsubscribe();
+    // channelsSnapshot.unsubscribe();
+  }, []);
+
+  return (
+    <div className="home">
+      <Servers
+        currentUser={currentUser}
+        servers={servers}
+        selectedServer={currentServer === null ? servers.first : currentServer}
+        setSelectedServer={setCurrentServer}
+      />
+      <Server
+        currentUser={currentUser}
+        selectedServer={currentServer === null ? servers.first : currentServer}
+        textChannels={textChannels}
+        voiceChannels={voiceChannels}
+        selectedChannel={currentChannel}
+        setSelectedChannel={(c) => setCurrentChannel(c)}
+      />
+      <Channel currentUser={currentUser} currentChannel={currentChannel} />
+    </div>
+  );
 }
 
-export default Home
+export default Home;

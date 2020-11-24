@@ -1,7 +1,9 @@
 import authReducer from './authReducer';
-import channelReducer from './channelReducer';
+import channelsReducer from './channelsReducer';
+import serversReducer from './serversReducer';
 
 export {
     authReducer,
-    channelReducer,
+    channelsReducer,
+    serversReducer,
 };

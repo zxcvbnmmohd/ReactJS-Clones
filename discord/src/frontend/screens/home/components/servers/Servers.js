@@ -17,7 +17,7 @@ function Servers(props) {
 
                         </div>
                         : <div className="servers__server" onClick={props.setSelectedServer(server)}>
-
+                            <p>{server.serverID.substring(0, 3)}</p>
                         </div>
                 )
             }
