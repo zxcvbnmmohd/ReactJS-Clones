@@ -1,8 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 
+import firestore, { auth } from '../../../../../backend/configs/firebase';
+import {
+    addTextChannel,
+    updateTextChannel,
+    removeTextChannel,
+
+    addVoiceChannel,
+    updateVoiceChannel,
+    removeVoiceChannel,
+
+    setCurrentChannel,
+
+    getTextChannels,
+    getVoiceChannels,
+    getCurrentChannel,
+} from "../../../../../backend/redux/reducers/channelsReducer";
+import { getCurrentServer } from "../../../../../backend/redux/reducers/serversReducer";
 import { getUser } from '../../../../../backend/redux/reducers/authReducer';
-import { auth } from '../../../../../backend/configs/firebase';
 
 import { Avatar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -16,8 +32,64 @@ import Channels from './channels/Channels.js';
 
 import './Server.css';
 
-function Server(props) {
+function Server() {
+    const dispatch = useDispatch();
     const user = useSelector(getUser);
+
+    const currentServer = useSelector(getCurrentServer);
+    const textChannels = useSelector(getTextChannels);
+    const voiceChannels = useSelector(getVoiceChannels);
+    const currentChannel = useSelector(getCurrentChannel);
+
+    useEffect(() => {
+        console.log("useEffect");
+
+        const unsubscribe = firestore.collection("servers").doc(currentServer.serverID).collection("channels").onSnapshot((snapshot) => {
+            console.log("Started");
+
+            snapshot.docChanges().forEach((change) => {
+                const channel = {
+                    channelID: change.doc.id,
+                    type: change.doc.data().type,
+                    name: change.doc.data().name,
+                    users: change.doc.data().users,
+                };
+
+                if (change.type === "added") {
+                    console.log("New Server: ", channel);
+
+                    if (currentChannel === null) dispatch(setCurrentChannel(channel));
+                    dispatch(channel.type === "text" ? addTextChannel(channel) : addVoiceChannel(channel));
+                }
+                if (change.type === "modified") {
+                    console.log("Modified Server: ", channel);
+
+                    dispatch(channel.type === "text" ? updateTextChannel(channel) : updateVoiceChannel(channel));
+                }
+                if (change.type === "removed") {
+                    console.log("Removed Server: ", channel);
+
+                    dispatch(channel.type === "text" ? removeTextChannel(channel) : removeVoiceChannel(channel));
+                }
+            });
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    const handleAddNewChannel = (type) => {
+        const name = prompt("Create new channel");
+
+        if (name) {
+            firestore.collection("servers").doc(currentServer.serverID).collection("channels").add({
+                name: name,
+                users: [],
+                type: type,
+            });
+        }
+    };
 
     return (
         <div className="server">
@@ -32,14 +104,13 @@ function Server(props) {
                         <ExpandMoreIcon />
                         <h4>Text Channels</h4>
                     </div>
-                    <AddIcon className='server__add' />
+                    <AddIcon className='server__add' onClick={() => handleAddNewChannel("text")} />
                 </div>
 
                 <div className="server__channels">
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
+                    {
+                        textChannels.map((channel) => <Channels key={channel.channelID} current={currentChannel === channel} channel={channel.name} />)
+                    }
                 </div>
 
                 <div className="server__head">
@@ -47,14 +118,13 @@ function Server(props) {
                         <ExpandMoreIcon />
                         <h4>Voice Channels</h4>
                     </div>
-                    <AddIcon className='server__add' />
+                    <AddIcon className='server__add' onClick={() => handleAddNewChannel("voice")} />
                 </div>
 
                 <div className="server__channels">
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
-                    <Channels channel='Youtube' />
+                    {
+                        voiceChannels.map((channel) => <Channels key={channel.channelID} current={currentChannel === channel} channel={channel.name} />)
+                    }
                 </div>
             </div>
 

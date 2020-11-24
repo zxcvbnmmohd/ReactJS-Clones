@@ -1,9 +1,21 @@
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import AddIcon from '@material-ui/icons/Add';
+// import { getUser } from "../../../../../backend/redux/reducers/authReducer";
+import {
+    getServers,
+    setCurrentServer,
+    getCurrentServer
+} from "../../../../../backend/redux/reducers/serversReducer";
 
 import './Servers.css';
 
-function Servers(props) {
+function Servers() {
+    const dispatch = useDispatch();
+    const servers = useSelector(getServers);
+    const currentServer = useSelector(getCurrentServer);
+
+
     return (
         <div className="servers">
             <div className="servers__me">
@@ -11,21 +23,25 @@ function Servers(props) {
             </div>
 
             {
-                props.servers.map(
-                    (server) => props.selectedServer === server
-                        ? <div className="servers__selectedServer">
-
-                        </div>
-                        : <div className="servers__server" onClick={props.setSelectedServer(server)}>
-                            <p>{server.serverID.substring(0, 3)}</p>
-                        </div>
+                servers.map(
+                    (server) => {
+                        console.log("Servers...");
+                        console.log(currentServer.serverID);
+                        return currentServer.serverID === server.serverID
+                            ? <div key={server.serverID} className="servers__selectedServer">
+                                <p>{server.serverID.substring(0, 3)}</p>
+                            </div>
+                            : <div key={server.serverID} className="servers__server" onClick={() => dispatch(setCurrentServer(server))}>
+                                <p>{server.serverID.substring(0, 3)}</p>
+                            </div>
+                    }
                 )
             }
 
             <div className="servers__add">
                 <AddIcon />
             </div>
-                
+
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth, googleProvider } from '../../../backend/configs/firebase';
+import { auth } from '../../../backend/configs/firebase';
 // import { auth } from '../../backend/services';
 import Login from './login/Login';
 import Register from './register/Register';
@@ -11,8 +11,8 @@ function Auth() {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [dob, setDOB] = useState();
-    const [error, setError] = useState();
+    // const [dob, setDOB] = useState();
+    // const [error, setError] = useState();
 
     const login = (e) => {
         e.preventDefault();
@@ -21,8 +21,8 @@ function Auth() {
             .then(res => {
                 console.log('User Logged In.');
                 if (res.user) console.log(res.user.uid);
-            })
-            .catch((err) => setError(err));
+            });
+            // .catch((err) => setError(err));
     };
 
     const register = (e) => {
@@ -32,8 +32,8 @@ function Auth() {
             .then(res => {
                 console.log('User Registered');
                 if (res.user) console.log(res.user.uid);
-            })
-            .catch((err) => setError(err));
+            });
+            // .catch((err) => setError(err));
     };
 
     const forgot = () => { };

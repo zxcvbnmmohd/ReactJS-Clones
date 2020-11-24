@@ -8,11 +8,23 @@ export const channelsReducer = createSlice({
     currentChannel: null,
   },
   reducers: {
-    addTextChannels: (state, action) => {
-      state.channels = action.payload;
+    addTextChannel: (state, action) => {
+      state.textChannels.push(action.payload);
     },
-    addVoiceChannels: (state, action) => {
-      state.channels = action.payload;
+    updateTextChannel: (state, action) => {
+      state.textChannels[state.textChannels.findIndex((obj => obj.channelID === action.payload.channelID))] = action.payload;
+    },
+    removeTextChannel: (state, action) => {
+      state.textChannels.splice(state.textChannels.findIndex((obj => obj.serverID === action.payload.serverID)), 1);
+    },
+    addVoiceChannel: (state, action) => {
+      state.voiceChannels.push(action.payload);
+    },
+    updateVoiceChannel: (state, action) => {
+      state.voiceChannels[state.voiceChannels.findIndex((obj => obj.channelID === action.payload.channelID))] = action.payload;
+    },
+    removeVoiceChannel: (state, action) => {
+      state.voiceChannels.splice(state.voiceChannels.findIndex((obj => obj.serverID === action.payload.serverID)), 1);
     },
     setCurrentChannel: (state, action) => {
       state.currentChannel = action.payload;
@@ -20,7 +32,17 @@ export const channelsReducer = createSlice({
   },
 });
 
-export const { addTextChannels, addVoiceChannels, setCurrentChannel } = channelsReducer.actions;
+export const {
+  addTextChannel,
+  updateTextChannel,
+  removeTextChannel,
+  
+  addVoiceChannel,
+  updateVoiceChannel,
+  removeVoiceChannel,
+
+  setCurrentChannel,
+} = channelsReducer.actions;
 
 export const getTextChannels = (state) => state.channels.textChannels;
 export const getVoiceChannels = (state) => state.channels.voiceChannels;
