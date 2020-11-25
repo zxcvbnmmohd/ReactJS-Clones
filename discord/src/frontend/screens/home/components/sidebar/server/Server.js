@@ -3,17 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import firestore, { auth } from "../../../../../../backend/configs/firebase";
 import {
-  addTextChannel,
-  updateTextChannel,
-  removeTextChannel,
-  addVoiceChannel,
-  updateVoiceChannel,
-  removeVoiceChannel,
-  setCurrentChannel,
-  getTextChannels,
-  getVoiceChannels,
-  getCurrentChannel,
+  addChannel,
+  updateChannel,
+  removeChannel,
   clearChannels,
+  setCurrentChannel,
+  getChannels,
+  getCurrentChannel,
 } from "../../../../../../backend/redux/reducers/channelsReducer";
 import { getCurrentServer } from "../../../../../../backend/redux/reducers/serversReducer";
 import { getCurrentUser } from "../../../../../../backend/redux/reducers/authReducer";
@@ -32,73 +28,54 @@ import "./Server.css";
 
 function Server() {
   const dispatch = useDispatch();
-  const user = useSelector(getCurrentUser);
+  const currentUser = useSelector(getCurrentUser);
 
   const currentServer = useSelector(getCurrentServer);
-  const textChannels = useSelector(getTextChannels);
-  const voiceChannels = useSelector(getVoiceChannels);
+  const channels = useSelector(getChannels);
   const currentChannel = useSelector(getCurrentChannel);
 
   useEffect(() => {
     console.log("useEffect");
-    var unsubscribe = null;
-    if (currentServer !== null) {
-      
-      unsubscribe = firestore
-        .collection("servers")
-        .doc(currentServer.serverID)
-        .collection("channels")
-        .onSnapshot((snapshot) => {
-          console.log("Started");
+    var unsubscribe = firestore
+      .collection("servers")
+      .doc(currentServer.serverID)
+      .collection("channels")
+      .onSnapshot((snapshot) => {
+        console.log("Started");
 
-          dispatch(clearChannels());
-          
-          snapshot.docChanges().forEach((change) => {
-            const channel = {
-              channelID: change.doc.id,
-              type: change.doc.data().type,
-              name: change.doc.data().name,
-              users: change.doc.data().users,
-            };
+        dispatch(clearChannels());
 
-            if (change.type === "added") {
-              console.log("New Server: ", channel);
+        snapshot.docChanges().forEach((change) => {
+          const channel = {
+            channelID: change.doc.id,
+            type: change.doc.data().type,
+            name: change.doc.data().name,
+            users: change.doc.data().users,
+            categories: change.doc.data().categories,
+          };
 
-              if (currentChannel === null) dispatch(setCurrentChannel(channel));
-              dispatch(
-                channel.type === "text"
-                  ? addTextChannel(channel)
-                  : addVoiceChannel(channel)
-              );
-            }
-            if (change.type === "modified") {
-              console.log("Modified Server: ", channel);
-
-              dispatch(
-                channel.type === "text"
-                  ? updateTextChannel(channel)
-                  : updateVoiceChannel(channel)
-              );
-            }
-            if (change.type === "removed") {
-              console.log("Removed Server: ", channel);
-
-              dispatch(
-                channel.type === "text"
-                  ? removeTextChannel(channel)
-                  : removeVoiceChannel(channel)
-              );
-            }
-          });
+          if (change.type === "added") {
+            console.log("New Server: ", channel.channelID);
+            if (currentChannel === null) dispatch(setCurrentChannel(channel));
+            dispatch(addChannel(channel));
+          }
+          if (change.type === "modified") {
+            console.log("Modified Server: ", channel.channelID);
+            dispatch(updateChannel(channel));
+          }
+          if (change.type === "removed") {
+            console.log("Removed Server: ", channel.channelID);
+            dispatch(removeChannel(channel));
+          }
         });
-    }
+      });
 
     return () => {
-      if (currentServer !== null) unsubscribe();
+      unsubscribe();
     };
   }, []);
 
-  const handleAddNewChannel = (type) => {
+  const handleAddNewChannel = (category) => {
     const name = prompt("Create new channel");
 
     if (name) {
@@ -108,8 +85,9 @@ function Server() {
         .collection("channels")
         .add({
           name: name,
-          users: [],
-          type: type,
+          members: [currentUser.userID],
+          type: "Text",
+          category: category,
         });
     }
   };
@@ -117,7 +95,7 @@ function Server() {
   return (
     <div className="dashboard">
       <div className="dashboard__top">
-        <h5>zxcvbnmmohd's server</h5>
+        <h5>{currentServer.name}</h5>
         <ExpandMoreIcon />
       </div>
 
@@ -129,16 +107,16 @@ function Server() {
           </div>
           <AddIcon
             className="server__mid__head__add"
-            onClick={() => handleAddNewChannel("text")}
+            onClick={() => handleAddNewChannel("Text Channels")}
           />
         </div>
 
         <div className="dashboard__mid__channels">
-          {textChannels.map((channel) => (
+          {Channels.map((channel) => (
             <Channels
               key={channel.channelID}
               current={currentChannel === channel}
-              channel={channel.name}
+              channel={channel}
             />
           ))}
         </div>
@@ -155,11 +133,11 @@ function Server() {
         </div>
 
         <div className="dashboard__mid__channels">
-          {voiceChannels.map((channel) => (
+          {Channels.map((channel) => (
             <Channels
               key={channel.channelID}
               current={currentChannel === channel}
-              channel={channel.name}
+              channel={channel}
             />
           ))}
         </div>
@@ -168,14 +146,14 @@ function Server() {
       <div className="dashboard__btm">
         <Avatar
           className="dashboard__btm__selfie"
-          src={user.selfie}
+          src={currentUser.selfie}
           onClick={() => {
             auth.signOut();
           }}
         />
         <div className="dashboard__btm__texts">
-          <h5>{user.name}</h5>
-          <h6>#{user.userID.substring(0, 5)}</h6>
+          <h5>{currentUser.name}</h5>
+          <h6>#{currentUser.userID.substring(0, 5)}</h6>
         </div>
         <div className="dashbaord__btm__icons">
           <MicIcon className="dashboard__btm__icons_icon" />

@@ -26,46 +26,41 @@ function Home() {
 
   useEffect(() => {
     console.log("useEffect");
-    
-    const unsubscribe = () =>
+    var unsubServers = null;
+
+    unsubServers = () =>
       firestore
         .collection("servers")
+        .where("members", "array-contains-any", [currentUser.userID])
         .onSnapshot((snapshot) => {
           console.log("Started");
           snapshot.docChanges().forEach((change) => {
+            const server = {
+              serverID: change.doc.id,
+              owner: change.doc.data().owner,
+              name: change.doc.data().name,
+              members: change.doc.data().members,
+              categories: [],
+            };
+
             if (change.type === "added") {
-              console.log("New Server: ", change.doc.data());
-
-              const server = {
-                serverID: change.doc.id,
-              };
-
+              console.log("New Server: ", server.serverID);
               dispatch(addServer(server));
             }
             if (change.type === "modified") {
-              console.log("Modified Server: ", change.doc.data());
-
-              dispatch(
-                updateServer({
-                  serverID: change.doc.id,
-                  ...change.doc.data(),
-                })
-              );
+              console.log("Modified Server: ", server.serverID);
+              dispatch(updateServer(server));
             }
             if (change.type === "removed") {
-              console.log("Removed Server: ", change.doc.data());
-
-              dispatch(
-                removeServer({
-                  serverID: change.doc.id,
-                  ...change.doc.data(),
-                })
-              );
+              console.log("Removed Server: ", server.serverID);
+              dispatch(removeServer(server));
             }
           });
         });
 
-    unsubscribe();
+    return () => {
+      unsubServers();
+    };
   }, []);
 
   function renderScreen(param) {
@@ -79,17 +74,13 @@ function Home() {
     }
   }
 
-  return <div className="home">
-    <Servers />
-    {
-      currentServer === null
-        ? <Dashboard />
-        : <Server />
-    }
-    {
-      renderScreen(currentPage)
-    }
-  </div>;
+  return (
+    <div className="home">
+      <Servers />
+      {currentServer === null ? <Dashboard /> : <Server />}
+      {renderScreen(currentPage)}
+    </div>
+  );
 }
 
 export default Home;
