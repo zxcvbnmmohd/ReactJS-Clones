@@ -5,15 +5,15 @@
     width: 240px;
     background-color: #2F3136;
     color: white;
-    margin: 0;
 }
 
 .dashboard__top {
+    display: flex;
     height: 25px;
 }
 
 .dashboard__top > form {
-    width: 100%;
+    flex: 1;
 }
 
 .dashboard__top > form > input {
@@ -22,9 +22,10 @@
     background: transparent;
     border: none;
     outline-width: 0;
-    font-size: 15px;
+    font-size: 12.5px;
+    font-weight: bold;
     background-color: #202225;
-    color: #FFFFFF;
+    color: #72767D;
     border-radius: 5px;
     box-shadow: inset 0px 0px 2px #000000;
 }
@@ -37,14 +38,38 @@
     padding: 10px;
     flex: 1;
 }
+
 .dashboard__mid__actions__action {
+    cursor: pointer;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    background-color: black;
-    height: 50px;
     border-radius: 5px;
-    padding-right: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.dashboard__mid__actions__action:hover {
+    background-color: #3A3C43;
+}
+
+.dashboard__mid__actions__actionActive {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #3A3C43;
+}
+
+.dashboard__mid__actions__action > h4 {
+    margin-left: 15px;
+}
+
+.dashboard__mid__actions__actionActive > h4 {
+    margin-left: 15px;
 }
 
 .dashboard__mid__dms {
@@ -103,7 +128,7 @@
     color: #B8BABD;
 }
 
-.dashboard__btm__icons > .MuiSvgIcon-root {
+.dashboard__btm__icons__icon {
     padding: 2.5px;
     cursor: pointer;
 } 

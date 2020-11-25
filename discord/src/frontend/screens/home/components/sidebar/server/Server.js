@@ -13,6 +13,7 @@ import {
   getTextChannels,
   getVoiceChannels,
   getCurrentChannel,
+  clearChannels,
 } from "../../../../../../backend/redux/reducers/channelsReducer";
 import { getCurrentServer } from "../../../../../../backend/redux/reducers/serversReducer";
 import { getCurrentUser } from "../../../../../../backend/redux/reducers/authReducer";
@@ -41,7 +42,8 @@ function Server() {
   useEffect(() => {
     console.log("useEffect");
     var unsubscribe = null;
-    if (currentServer !== null)
+    if (currentServer !== null) {
+      
       unsubscribe = firestore
         .collection("servers")
         .doc(currentServer.serverID)
@@ -49,6 +51,8 @@ function Server() {
         .onSnapshot((snapshot) => {
           console.log("Started");
 
+          dispatch(clearChannels());
+          
           snapshot.docChanges().forEach((change) => {
             const channel = {
               channelID: change.doc.id,
@@ -87,9 +91,10 @@ function Server() {
             }
           });
         });
+    }
 
     return () => {
-        if (currentServer !== null) unsubscribe();
+      if (currentServer !== null) unsubscribe();
     };
   }, []);
 

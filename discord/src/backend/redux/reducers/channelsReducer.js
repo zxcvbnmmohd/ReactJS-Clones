@@ -29,6 +29,11 @@ export const channelsReducer = createSlice({
     setCurrentChannel: (state, action) => {
       state.currentChannel = action.payload;
     },
+    clearChannels: (state) => {
+      state.textChannels = [];
+      state.voiceChannels = [];
+      state.currentChannel = null;
+    },
   },
 });
 
@@ -42,6 +47,7 @@ export const {
   removeVoiceChannel,
 
   setCurrentChannel,
+  clearChannels,
 } = channelsReducer.actions;
 
 export const getTextChannels = (state) => state.channels.textChannels;

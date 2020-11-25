@@ -1,140 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import firestore, { auth } from "../../../../../../backend/configs/firebase";
-import {
-  addTextChannel,
-  updateTextChannel,
-  removeTextChannel,
-  addVoiceChannel,
-  updateVoiceChannel,
-  removeVoiceChannel,
-  setCurrentChannel,
-  getTextChannels,
-  getVoiceChannels,
-  getCurrentChannel,
-} from "../../../../../../backend/redux/reducers/channelsReducer";
-import { getCurrentServer } from "../../../../../../backend/redux/reducers/serversReducer";
+import { isMicOn, setMicOn, setMicOff, getCurrentPage, setCurrentPage, } from "../../../../../../backend/redux/reducers/appReducer";
 import { getCurrentUser } from "../../../../../../backend/redux/reducers/authReducer";
 
 import { Avatar } from "@material-ui/core";
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import AddIcon from "@material-ui/icons/Add";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MicIcon from "@material-ui/icons/Mic";
-// import MicOffIcon from '@material-ui/icons/MicOff';
+import MicOffIcon from '@material-ui/icons/MicOff';
 import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 
 import "./Dashboard.css";
 
-function Server() {
+function Dashboard() {
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
-
-  const currentServer = useSelector(getCurrentServer);
-  const textChannels = useSelector(getTextChannels);
-  const voiceChannels = useSelector(getVoiceChannels);
-  const currentChannel = useSelector(getCurrentChannel);
-
-  useEffect(() => {
-    console.log("useEffect");
-    var unsubscribe = null;
-    if (currentServer !== null)
-      unsubscribe = firestore
-        .collection("servers")
-        .doc(currentServer.serverID)
-        .collection("channels")
-        .onSnapshot((snapshot) => {
-          console.log("Started");
-
-          snapshot.docChanges().forEach((change) => {
-            const channel = {
-              channelID: change.doc.id,
-              type: change.doc.data().type,
-              name: change.doc.data().name,
-              users: change.doc.data().users,
-            };
-
-            if (change.type === "added") {
-              console.log("New Server: ", channel);
-
-              if (currentChannel === null) dispatch(setCurrentChannel(channel));
-              dispatch(
-                channel.type === "text"
-                  ? addTextChannel(channel)
-                  : addVoiceChannel(channel)
-              );
-            }
-            if (change.type === "modified") {
-              console.log("Modified Server: ", channel);
-
-              dispatch(
-                channel.type === "text"
-                  ? updateTextChannel(channel)
-                  : updateVoiceChannel(channel)
-              );
-            }
-            if (change.type === "removed") {
-              console.log("Removed Server: ", channel);
-
-              dispatch(
-                channel.type === "text"
-                  ? removeTextChannel(channel)
-                  : removeVoiceChannel(channel)
-              );
-            }
-          });
-        });
-
-    return () => {
-      if (currentServer !== null) unsubscribe();
-    };
-  }, []);
-
-  const handleAddNewChannel = (type) => {
-    const name = prompt("Create new channel");
-
-    if (name) {
-      firestore
-        .collection("servers")
-        .doc(currentServer.serverID)
-        .collection("channels")
-        .add({
-          name: name,
-          users: [],
-          type: type,
-        });
-    }
-  };
+  const currentPage = useSelector(getCurrentPage);
+  const mic = useSelector(isMicOn);
 
   return (
     <div className="dashboard">
       <div className="dashboard__top">
-        <form onSubmit={(e) => {}}>
-          <input
-            placeholder="Find or start a conversation"
-            // value={props.email}
-            // onChange={(e) => props.setEmail(e)}
-          />
+        <form onSubmit={(e) => { }}>
+          <input placeholder="Find or start a conversation" />
           <button type="submit">Search</button>
         </form>
       </div>
 
       <div className="dashboard__mid">
         <div clasName="dashboard__mid__actions">
-          <div className="dashboard__mid__actions__action">
-            <AddIcon
-              className="server__mid__actions__action__add"
-              onClick={() => handleAddNewChannel("text")}
+          <div
+            className={
+              currentPage === "Friends"
+                ? "dashboard__mid__actions__actionActive"
+                : "dashboard__mid__actions__action"
+            }
+            onClick={() => dispatch(setCurrentPage("Friends"))}
+          >
+            <SupervisorAccountIcon
+              className="server__mid__actions__action__icon"
             />
-            <h3>Friends</h3>
+            <h4>Friends</h4>
+          </div>
+
+          <div
+            className={
+              currentPage === "Settings"
+                ? "dashboard__mid__actions__actionActive"
+                : "dashboard__mid__actions__action"
+            }
+            onClick={() => dispatch(setCurrentPage("Settings"))}
+          >
+            <SettingsIcon
+              className="server__mid__actions__action__icon"
+            />
+            <h4>Settings</h4>
           </div>
         </div>
+
         <div className="dashboard__mid__dms">
           <h5>Direct Messages</h5>
           <AddIcon
             className="server__mid__dms__add"
-            onClick={() => handleAddNewChannel("text")}
           />
         </div>
 
@@ -162,13 +92,17 @@ function Server() {
           <h6>#{user.userID.substring(0, 5)}</h6>
         </div>
         <div className="dashbaord__btm__icons">
-          <MicIcon className="dashboard__btm__icons_icon" />
-          <HeadsetIcon />
-          <SettingsIcon />
+          {
+            mic
+              ? <MicIcon className="dashboard__btm__icons__icon" onClick={() => dispatch(setMicOff())} />
+              : <MicOffIcon className="dashboard__btm__icons__icon" onClick={() => dispatch(setMicOn())} />
+          }
+          <HeadsetIcon className="dashboard__btm__icons__icon" />
+          <SettingsIcon className="dashboard__btm__icons__icon" />
         </div>
       </div>
     </div>
   );
 }
 
-export default Server;
+export default Dashboard;

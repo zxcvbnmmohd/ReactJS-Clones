@@ -17,34 +17,36 @@ function Servers() {
 
   return (
     <div className="servers">
-      <div
-        className={
-          currentServer === null
-            ? "servers__meActive"
-            : "servers__me"
+      <div className="holder">
+        {
+          currentServer === null ? <div className="line"></div> : <div className="space"></div>
         }
-        onClick={() => dispatch(setCurrentServer(null))}
-      >
-        <h5>ME</h5>
+        
+        <div className="servers__me" onClick={() => dispatch(setCurrentServer(null))} >
+          <h5>ME</h5>
+        </div>
+
+        <div className="space"></div>
       </div>
 
-      {servers.map((server) => {
-        console.log("Servers...");
-        console.log(currentServer.serverID);
-        return currentServer.serverID === server.serverID ? (
-          <div key={server.serverID} className="servers__serverActive">
-            <p>{server.serverID.substring(0, 3)}</p>
-          </div>
-        ) : (
-          <div
-            key={server.serverID}
-            className="servers__server"
-            onClick={() => dispatch(setCurrentServer(server))}
-          >
-            <p>{server.serverID.substring(0, 3)}</p>
-          </div>
-        );
-      })}
+
+      {
+        servers.map((server) => {
+          return (
+            <div className="holder">
+              {
+                currentServer === null ? <div className="space"></div> : currentServer.serverID === server.serverID ? <div className="dot"></div> : <div className="space"></div>
+              }
+
+              <div key={server.serverID} className="servers__server" onClick={() => dispatch(setCurrentServer(server))} >
+                <p>{server.serverID.substring(0, 3)}</p>
+              </div>
+
+              <div className="space"></div>
+            </div>
+          );
+        })
+      }
 
       <div className="servers__add">
         <AddIcon />

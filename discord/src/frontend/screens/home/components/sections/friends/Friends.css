@@ -1,0 +1,28 @@
+.friends {
+    background-color: #36393F;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex: 1.0;
+    /* padding: 20px; */
+}
+
+.friends__head {
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-bottom: 3px solid #26282c;
+    padding: 15px;
+}
+
+.friends__head__actions__icon {
+    cursor: pointer;
+    padding: 7.5px;
+    color: #B9BBBE;
+} 
+
+.friends__head__actions__icon:hover {
+    color: #FFF;
+} 
