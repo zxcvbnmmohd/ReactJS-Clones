@@ -1,4 +1,4 @@
-.server {
+.dashboard {
     display: flex;
     flex-direction: column;
     width: 240px;
@@ -6,7 +6,7 @@
     color: white;
 }
 
-.server__top {
+.dashboard__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,12 +16,12 @@
     height: 25px;
 }
 
-.server__mid {
+.dashboard__mid {
     padding: 10px;
     flex: 1;
 }
 
-.server__head {
+.dashboard__mid__head {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,27 +30,27 @@
     margin-bottom: 10px;
 }
 
-.server__drop {
+.dashboard__mid__head__drop {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.server__add {
+.dashboard__mid__head__add {
     cursor: pointer;
 }
 
-.server__add:hover {
+.dashboard__mid__head__add:hover {
     color: #FFF;
 }
 
-.server_channels {
+.dashboard_channels {
     display: flex;
     margin-bottom: 20px;
 }
 
-.server__btm {
+.dashboard__btm {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,33 +58,33 @@
     padding: 10px;
 }
 
-.server__btm__selfie {
+.dashboard__btm__selfie {
     cursor: pointer;
 }
 
- .server__btm__texts {
+ .dashboard__btm__texts {
      flex: 1;
      text-align: left;
      padding-left: 10px;
 }
 
-.server__btm__texts > h5 {
+.dashboard__btm__texts > h5 {
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
 }
 
-.server__btm__texts > h6 {
+.dashboard__btm__texts > h6 {
     color: #B9BBBE;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.server__btm__icons {
+.dashboard__btm__icons {
     color: #B8BABD;
 }
 
-.server__btm__icons > .MuiSvgIcon-root {
+.dashboard__btm__icons > .MuiSvgIcon-root {
     padding: 2.5px;
     cursor: pointer;
 } 

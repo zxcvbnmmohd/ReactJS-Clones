@@ -1,0 +1,109 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    width: 240px;
+    background-color: #2F3136;
+    color: white;
+    margin: 0;
+}
+
+.dashboard__top {
+    height: 25px;
+}
+
+.dashboard__top > form {
+    width: 100%;
+}
+
+.dashboard__top > form > input {
+    width: 100%;
+    height: 25px;
+    background: transparent;
+    border: none;
+    outline-width: 0;
+    font-size: 15px;
+    background-color: #202225;
+    color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 2px #000000;
+}
+
+.dashboard__top > form > button {
+    display: none;
+}
+
+.dashboard__mid {
+    padding: 10px;
+    flex: 1;
+}
+.dashboard__mid__actions__action {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: black;
+    height: 50px;
+    border-radius: 5px;
+    padding-right: 5px;
+}
+
+.dashboard__mid__dms {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8E9297;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.dashboard__mid__dms__add {
+    cursor: pointer;
+}
+
+.dashboard__mid__dms__add:hover {
+    color: #FFF;
+}
+
+.dashboard_channels {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.dashboard__btm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #292B2F;
+    padding: 10px;
+}
+
+.dashboard__btm__selfie {
+    cursor: pointer;
+}
+
+ .dashboard__btm__texts {
+     flex: 1;
+     text-align: left;
+     padding-left: 10px;
+}
+
+.dashboard__btm__texts > h5 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+.dashboard__btm__texts > h6 {
+    color: #B9BBBE;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard__btm__icons {
+    color: #B8BABD;
+}
+
+.dashboard__btm__icons > .MuiSvgIcon-root {
+    padding: 2.5px;
+    cursor: pointer;
+} 

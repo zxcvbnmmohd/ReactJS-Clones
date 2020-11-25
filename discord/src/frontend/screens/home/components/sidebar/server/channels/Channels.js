@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentChannel, getCurrentChannel } from "../../../../../../backend/redux/reducers/channelsReducer";
+import { setCurrentChannel, getCurrentChannel } from "../../../../../../../backend/redux/reducers/channelsReducer";
 import SettingsIcon from '@material-ui/icons/Settings';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import './Channels.css';
