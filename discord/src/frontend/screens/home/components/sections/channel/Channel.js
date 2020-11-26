@@ -9,7 +9,7 @@ import RedeemIcon from '@material-ui/icons/Redeem';
 import GifIcon from '@material-ui/icons/Gif';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
-import firestore from "../../../../../../backend/configs/firebase";
+import firestore, { firebase } from "../../../../../../backend/configs/firebase";
 import { getCurrentUser } from "../../../../../../backend/redux/reducers/authReducer";
 import { getCurrentChannel } from "../../../../../../backend/redux/reducers/channelsReducer";
 import { getCurrentServer } from "../../../../../../backend/redux/reducers/serversReducer";
@@ -17,16 +17,31 @@ import Message from './message/Message.js';
 
 import './Channel.css';
 
-function Channel(props) {
+function Channel() {
     const currentUser = useSelector(getCurrentUser);
     const currentChannel = useSelector(getCurrentChannel);
     const currentServer = useSelector(getCurrentServer);
-    const [formValue, setFormValue] = useState('');
+    const [form, setForm] = useState();
 
     const msgsCollection = firestore.collection("servers").doc(currentServer.serverID).collection("channels").doc(currentChannel.channelID).collection("messages");
-    const msgsQuery = msgsCollection;
+    const msgsQuery = msgsCollection.orderBy("createdAt");
 
     const [messages] = useCollectionData(msgsQuery, { idField: 'msgID' });
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        if (form) {
+            await msgsCollection.add({
+                ownerID: currentUser.userID,
+                type: 'text',
+                msg: form,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+
+            setForm();
+        }
+    };
 
     return (
         <div className='channel'>
@@ -49,10 +64,12 @@ function Channel(props) {
 
             <div className="channel__textField">
                 <AddCircleIcon />
-                <form>
-                    <input placeholder='Message #general' />
-                    <button className='channel__textField__button' type="submit">Send</button>
+
+                <form onSubmit={onSubmit}>
+                    <input placeholder={'Message #' + currentChannel.name} type="text" value={form} onChange={e => setForm(e.target.value)} />
+                    <button className='channel__textField__button' type="submit" disabled={!form}>Send</button>
                 </form>
+
                 <div className="channel__textField__options">
                     <RedeemIcon />
                     <GifIcon />
