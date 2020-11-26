@@ -4,9 +4,9 @@ import { Avatar } from '@material-ui/core';
 
 import './Message.css';
 
-function Message({ id, message }) {
+function Message(props) {
     return (
-        <div className="message">
+        <div className="message" >
             <Avatar src='' />
             <div className="message__texts">
                 <div className="message__texts__info">
@@ -14,11 +14,11 @@ function Message({ id, message }) {
                     <h6>Today at 6:50 PM</h6>
                 </div>
                 <div className="message__texts__msg">
-                    <p>Hello. Beep. Boop.</p>
+                    <p>{props.msg}</p>
                 </div>
-                
+
             </div>
-        </div>
+        </div >
     )
 }
 

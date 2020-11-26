@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage } from "../../../backend/redux/reducers/appReducer";
 import { getCurrentUser } from "../../../backend/redux/reducers/authReducer";
+import { getCurrentChannel } from "../../../backend/redux/reducers/channelsReducer";
 import {
   addServer,
   updateServer,
@@ -23,43 +24,42 @@ function Home() {
   const currentUser = useSelector(getCurrentUser);
   const currentPage = useSelector(getCurrentPage);
   const currentServer = useSelector(getCurrentServer);
+  const currentChannel = useSelector(getCurrentChannel);
+
+  const serversCollection = firestore.collection("servers");
+  const serversQuery = serversCollection.where("members", "array-contains-any", [currentUser.userID]);
 
   useEffect(() => {
     console.log("useEffect");
-    var unsubServers = null;
+    const unsubscribe = serversQuery.onSnapshot((snapshot) => {
+      console.log("Started");
 
-    unsubServers = () =>
-      firestore
-        .collection("servers")
-        .where("members", "array-contains-any", [currentUser.userID])
-        .onSnapshot((snapshot) => {
-          console.log("Started");
-          snapshot.docChanges().forEach((change) => {
-            const server = {
-              serverID: change.doc.id,
-              owner: change.doc.data().owner,
-              name: change.doc.data().name,
-              members: change.doc.data().members,
-              categories: [],
-            };
+      snapshot.docChanges().forEach((change) => {
+        const server = {
+          serverID: change.doc.id,
+          ownerID: change.doc.data().ownerID,
+          name: change.doc.data().name,
+          members: change.doc.data().members,
+          categories: change.doc.data().categories,
+        };
 
-            if (change.type === "added") {
-              console.log("New Server: ", server.serverID);
-              dispatch(addServer(server));
-            }
-            if (change.type === "modified") {
-              console.log("Modified Server: ", server.serverID);
-              dispatch(updateServer(server));
-            }
-            if (change.type === "removed") {
-              console.log("Removed Server: ", server.serverID);
-              dispatch(removeServer(server));
-            }
-          });
-        });
+        if (change.type === "added") {
+          console.log("New Server: ", server.serverID);
+          dispatch(addServer(server));
+        }
+        if (change.type === "modified") {
+          console.log("Modified Server: ", server.serverID);
+          dispatch(updateServer(server));
+        }
+        if (change.type === "removed") {
+          console.log("Removed Server: ", server.serverID);
+          dispatch(removeServer(server));
+        }
+      });
+    });
 
     return () => {
-      unsubServers();
+      unsubscribe();
     };
   }, []);
 
@@ -78,7 +78,7 @@ function Home() {
     <div className="home">
       <Servers />
       {currentServer === null ? <Dashboard /> : <Server />}
-      {renderScreen(currentPage)}
+      {currentServer === null ? renderScreen(currentPage) : currentChannel === null ? <></> : <Channel />}
     </div>
   );
 }

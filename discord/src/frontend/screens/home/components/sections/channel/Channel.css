@@ -5,6 +5,7 @@
     flex-direction: column;
     flex: 1.0;
     /* padding: 20px; */
+    height: 100vh;
 }
 
 .channel__head {

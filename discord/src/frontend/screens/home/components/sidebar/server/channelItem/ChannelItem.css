@@ -1,8 +1,7 @@
-.channels {
+.channelItem {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    background-color: #3A3C43;
     color: #72767D;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -13,41 +12,55 @@
     height: 25px;
 }
 
-.channels:active {
+.channelItemCurrent {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    color: white;
+    background-color: #3A3C43;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    height: 25px;
+}
+
+.channelItem:hover {
     color: #FFF;
 }
 
-.channels:hover {
-    color: #FFF;
-}
-
-.channels__channel {
+.channelItem__channel {
     line-height: 20px;
 }
 
-
-.channels__hash {
+.channelItem__hash {
     font-size: 25px;
     font-weight: 500;
     vertical-align: middle;
+    color: #72767D;
 }
 
-.channels__name {
+.channelItem__name {
     font-size: 20px;
     font-weight: bold;
     vertical-align: middle;
 }
 
-.channels__settings {
+.channelItem__settings {
     line-height: 20px;
+    color: #72767D;
 }
 
-.channels__settings_icon {
+.channelItem__settings_icon {
     vertical-align: middle;
     margin-right: 5px;
+    color: #72767D;
 }
 
-.channels__add_icon {
+.channelItem__add_icon {
     vertical-align: middle;
     margin-right: 10px;
+    color: #72767D;
 }

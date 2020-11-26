@@ -3,12 +3,17 @@
     flex-direction: column;
     justify-content: stretch;
     width: 240px;
+    height: 100vh;
     background-color: #2F3136;
     color: white;
 }
 
 .dashboard__top {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #26282c;
+    padding: 15px;
     height: 25px;
 }
 

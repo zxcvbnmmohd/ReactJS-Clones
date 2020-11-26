@@ -33,12 +33,16 @@ function Servers() {
       {
         servers.map((server) => {
           return (
-            <div className="holder">
+            <div key={server.serverID} className="holder">
               {
-                currentServer === null ? <div className="space"></div> : currentServer.serverID === server.serverID ? <div className="dot"></div> : <div className="space"></div>
+                currentServer === null
+                  ? <div className="space"></div>
+                  : currentServer.serverID === server.serverID
+                    ? <div className="dot"></div>
+                    : <div className="space"></div>
               }
 
-              <div key={server.serverID} className="servers__server" onClick={() => dispatch(setCurrentServer(server))} >
+              <div className="servers__server" onClick={() => dispatch(setCurrentServer(server))} >
                 <p>{server.serverID.substring(0, 3)}</p>
               </div>
 

@@ -31,7 +31,7 @@ function Dashboard() {
       </div>
 
       <div className="dashboard__mid">
-        <div clasName="dashboard__mid__actions">
+        <div className="dashboard__mid__actions">
           <div
             className={
               currentPage === "Friends"
