@@ -21,7 +21,7 @@ function Channel() {
     const currentUser = useSelector(getCurrentUser);
     const currentChannel = useSelector(getCurrentChannel);
     const currentServer = useSelector(getCurrentServer);
-    const [form, setForm] = useState();
+    const [msg, setMsg] = useState("");
 
     const msgsCollection = firestore.collection("servers").doc(currentServer.serverID).collection("channels").doc(currentChannel.channelID).collection("messages");
     const msgsQuery = msgsCollection.orderBy("createdAt");
@@ -31,15 +31,15 @@ function Channel() {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (form) {
+        if (msg) {
             await msgsCollection.add({
                 ownerID: currentUser.userID,
                 type: 'text',
-                msg: form,
+                msg: msg,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             });
 
-            setForm();
+            setMsg();
         }
     };
 
@@ -66,8 +66,8 @@ function Channel() {
                 <AddCircleIcon />
 
                 <form onSubmit={onSubmit}>
-                    <input placeholder={'Message #' + currentChannel.name} type="text" value={form} onChange={e => setForm(e.target.value)} />
-                    <button className='channel__textField__button' type="submit" disabled={!form}>Send</button>
+                    <input placeholder={'Message #' + currentChannel.name} type="text" value={msg} onChange={(e) => setMsg(e.target.value)} />
+                    <button className='channel__textField__button' type="submit" disabled={!msg}>Send</button>
                 </form>
 
                 <div className="channel__textField__options">
