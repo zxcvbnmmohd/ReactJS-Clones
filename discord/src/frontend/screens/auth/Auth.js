@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { auth } from '../../../backend/configs/firebase';
-// import { auth } from '../../backend/services';
+
+import { auth } from '../../../backend';
+
 import Login from './login/Login';
 import Register from './register/Register';
 
@@ -40,7 +41,7 @@ function Auth() {
 
     return (
         <div className='auth'>
-            <div className="auth__logo">
+            <div className='auth__logo'>
                 <img
                     src='https://forum.jellyro.com/uploads/monthly_2016_11/Discord_Purple_Tight.png.1ed2ade737b458d4ddda66c03346311a.png'
                     alt='logo' />

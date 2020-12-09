@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RedeemIcon from '@material-ui/icons/Redeem';
-import GifIcon from '@material-ui/icons/Gif';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import GifIcon from '@material-ui/icons/Gif';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import RedeemIcon from '@material-ui/icons/Redeem';
 
-import firestore, { firebase } from "../../../../../../backend/configs/firebase";
-import { getCurrentUser } from "../../../../../../backend/redux/reducers/authReducer";
-import { getCurrentChannel } from "../../../../../../backend/redux/reducers/channelsReducer";
-import { getCurrentServer } from "../../../../../../backend/redux/reducers/serversReducer";
+import { firebase, firestore, getCurrentUser, getCurrentChannel, getCurrentServer } from '../../../../../../backend';
+
 import Message from './message/Message.js';
 
 import './Channel.css';
@@ -21,10 +19,10 @@ function Channel() {
     const currentUser = useSelector(getCurrentUser);
     const currentChannel = useSelector(getCurrentChannel);
     const currentServer = useSelector(getCurrentServer);
-    const [msg, setMsg] = useState("");
+    const [msg, setMsg] = useState('');
 
-    const msgsCollection = firestore.collection("servers").doc(currentServer.serverID).collection("channels").doc(currentChannel.channelID).collection("messages");
-    const msgsQuery = msgsCollection.orderBy("createdAt");
+    const msgsCollection = firestore.collection('servers').doc(currentServer.serverID).collection('channels').doc(currentChannel.channelID).collection('messages');
+    const msgsQuery = msgsCollection.orderBy('createdAt');
 
     const [messages] = useCollectionData(msgsQuery, { idField: 'msgID' });
 
@@ -45,32 +43,32 @@ function Channel() {
 
     return (
         <div className='channel'>
-            <div className="channel__head">
-                <div className="channel__head__title">
+            <div className='channel__head'>
+                <div className='channel__head__title'>
                     <h5># {currentChannel.name}</h5>
                 </div>
-                <div className="channel__head__actions">
+                <div className='channel__head__actions'>
                     <NotificationsIcon />
                     <BookmarkIcon />
                     <PeopleAltIcon />
                 </div>
             </div>
 
-            <div className="channel__messages">
+            <div className='channel__messages'>
                 {
                     messages && messages.map((msg) => <Message key={msg.msgID} msg={msg.msg} />)
                 }
             </div>
 
-            <div className="channel__textField">
+            <div className='channel__textField'>
                 <AddCircleIcon />
 
                 <form onSubmit={onSubmit}>
-                    <input placeholder={'Message #' + currentChannel.name} type="text" value={msg} onChange={(e) => setMsg(e.target.value)} />
-                    <button className='channel__textField__button' type="submit" disabled={!msg}>Send</button>
+                    <input placeholder={'Message #' + currentChannel.name} type='text' value={msg} onChange={(e) => setMsg(e.target.value)} />
+                    <button className='channel__textField__button' type='submit' disabled={!msg}>Send</button>
                 </form>
 
-                <div className="channel__textField__options">
+                <div className='channel__textField__options'>
                     <RedeemIcon />
                     <GifIcon />
                     <EmojiEmotionsIcon />

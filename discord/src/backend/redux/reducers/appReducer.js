@@ -4,7 +4,7 @@ export const appReducer = createSlice({
     name: 'app',
     initialState: {
         mic: true,
-        currentPage: "Friends",
+        currentPage: 'Friends',
     },
     reducers: {
         setMicOn: (state) => {

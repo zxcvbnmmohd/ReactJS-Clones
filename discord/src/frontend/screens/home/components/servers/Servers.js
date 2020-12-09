@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import AddIcon from "@material-ui/icons/Add";
-// import { getCurrentUser } from "../../../../../backend/redux/reducers/authReducer";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '@material-ui/core/Modal';
+// import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+
 import {
   getServers,
   setCurrentServer,
   getCurrentServer,
-} from "../../../../../backend/redux/reducers/serversReducer";
+} from '../../../../../backend';
 
-import "./Servers.css";
+import './Servers.css';
 
 function Servers() {
   const dispatch = useDispatch();
@@ -27,48 +27,48 @@ function Servers() {
   };
 
   return (
-    <div className="servers">
-      <div className="holder">
+    <div className='servers'>
+      <div className='holder'>
         {currentServer === null ? (
-          <div className="line"></div>
+          <div className='line'></div>
         ) : (
-          <div className="space"></div>
+          <div className='space'></div>
         )}
 
         <div
-          className="servers__me"
+          className='servers__me'
           onClick={() => dispatch(setCurrentServer(null))}
         >
           <h5>ME</h5>
         </div>
 
-        <div className="space"></div>
+        <div className='space'></div>
       </div>
 
       {servers.map((server) => {
         return (
-          <div key={server.serverID} className="holder">
+          <div key={server.serverID} className='holder'>
             {currentServer === null ? (
-              <div className="space"></div>
+              <div className='space'></div>
             ) : currentServer.serverID === server.serverID ? (
-              <div className="dot"></div>
+              <div className='dot'></div>
             ) : (
-              <div className="space"></div>
+              <div className='space'></div>
             )}
 
             <div
-              className="servers__server"
+              className='servers__server'
               onClick={() => dispatch(setCurrentServer(server))}
             >
               <p>{server.serverID.substring(0, 3)}</p>
             </div>
 
-            <div className="space"></div>
+            <div className='space'></div>
           </div>
         );
       })}
 
-      <div className="servers__add" onClick={handleOpen}>
+      <div className='servers__add' onClick={handleOpen}>
         <AddIcon />
         <Modal open={open} onClose={handleClose}>
           <div>

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './frontend/app/App';
-import store from './backend/redux/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './backend/configs/serviceWorker';
+
+import { store, serviceWorker } from './backend';
+import App from './app/App';
+
 import './index.css';
 
 ReactDOM.render(
@@ -19,3 +20,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+0

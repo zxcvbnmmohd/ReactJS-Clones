@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentPage } from "../../../backend/redux/reducers/appReducer";
-import { getCurrentUser } from "../../../backend/redux/reducers/authReducer";
-import { getCurrentChannel } from "../../../backend/redux/reducers/channelsReducer";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
+  getCurrentPage,
+  getCurrentUser,
+  getCurrentChannel,
   addServer,
   updateServer,
   removeServer,
   getCurrentServer,
-} from "../../../backend/redux/reducers/serversReducer";
-import firestore from "../../../backend/configs/firebase";
-import Servers from "./components/servers/Servers";
-import Dashboard from "./components/sidebar/dashboard/Dashboard";
-import Server from "./components/sidebar/server/Server";
-import Channel from "./components/sections/channel/Channel";
-import Friends from "./components/sections/friends/Friends";
-import Settings from "./components/sections/settings/Settings";
+  firestore
+} from '../../../backend/';
 
-import "./Home.css";
+import Friends from './components/sections/friends/Friends';
+import Channel from './components/sections/channel/Channel';
+import Dashboard from './components/sidebar/dashboard/Dashboard';
+import Server from './components/sidebar/server/Server';
+import Servers from './components/servers/Servers';
+import Settings from './components/sections/settings/Settings';
+
+import './Home.css';
 
 function Home() {
   const dispatch = useDispatch();
@@ -26,13 +28,17 @@ function Home() {
   const currentServer = useSelector(getCurrentServer);
   const currentChannel = useSelector(getCurrentChannel);
 
-  const serversCollection = firestore.collection("servers");
-  const serversQuery = serversCollection.where("members", "array-contains-any", [currentUser.userID]);
+  const serversCollection = firestore.collection('servers');
+  const serversQuery = serversCollection.where(
+    'members',
+    'array-contains-any',
+    [currentUser.userID]
+  );
 
   useEffect(() => {
-    console.log("useEffect");
+    console.log('useEffect');
     const unsubscribe = serversQuery.onSnapshot((snapshot) => {
-      console.log("Started");
+      console.log('Started');
 
       snapshot.docChanges().forEach((change) => {
         const server = {
@@ -43,16 +49,16 @@ function Home() {
           categories: change.doc.data().categories,
         };
 
-        if (change.type === "added") {
-          console.log("New Server: ", server.serverID);
+        if (change.type === 'added') {
+          console.log('New Server: ', server.serverID);
           dispatch(addServer(server));
         }
-        if (change.type === "modified") {
-          console.log("Modified Server: ", server.serverID);
+        if (change.type === 'modified') {
+          console.log('Modified Server: ', server.serverID);
           dispatch(updateServer(server));
         }
-        if (change.type === "removed") {
-          console.log("Removed Server: ", server.serverID);
+        if (change.type === 'removed') {
+          console.log('Removed Server: ', server.serverID);
           dispatch(removeServer(server));
         }
       });
@@ -61,13 +67,13 @@ function Home() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, );
 
   function renderScreen(param) {
     switch (param) {
-      case "Friends":
+      case 'Friends':
         return <Friends />;
-      case "Settings":
+      case 'Settings':
         return <Settings />;
       default:
         return <Channel />;
@@ -75,10 +81,16 @@ function Home() {
   }
 
   return (
-    <div className="home">
+    <div className='home'>
       <Servers />
       {currentServer === null ? <Dashboard /> : <Server />}
-      {currentServer === null ? renderScreen(currentPage) : currentChannel === null ? <></> : <Channel />}
+      {currentServer === null ? (
+        renderScreen(currentPage)
+      ) : currentChannel === null ? (
+        <></>
+      ) : (
+        <Channel />
+      )}
     </div>
   );
 }

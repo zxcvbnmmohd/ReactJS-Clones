@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const serversReducer = createSlice({
-  name: "servers",
+  name: 'servers',
   initialState: {
     servers: [],
     currentServer: null,
@@ -26,7 +26,6 @@ export const {
   addServer,
   updateServer,
   removeServer,
-  
   setCurrentServer,
 } = serversReducer.actions;
 

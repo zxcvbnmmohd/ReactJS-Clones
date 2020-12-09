@@ -1,6 +1,7 @@
 .login {
     display: flex;
     flex-direction: row;
+    min-width: 50%;
     width: 800px;
     background-color: #37393E;
     color: #fff;
