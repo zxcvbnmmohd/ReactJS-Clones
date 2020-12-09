@@ -8,6 +8,7 @@ import {
 import {
     usersCollection,
     cuDocument,
+    cuTokensCollection,
 } from './users_api';
 
 export {
@@ -17,5 +18,6 @@ export {
     channelDocument,
     msgsCollection,
     usersCollection,
-    cuDocument
+    cuDocument,
+    cuTokensCollection,
 };
