@@ -1,4 +1,4 @@
-import { firebase, firestore, auth, googleProvider } from './firebase';
+import { firebase, firestore, fieldValues, auth, googleProvider } from './firebase';
 import * as serviceWorker from './serviceWorker';
 
-export { firebase, firestore, auth, googleProvider, serviceWorker };
+export { firebase, firestore, fieldValues, auth, googleProvider, serviceWorker };

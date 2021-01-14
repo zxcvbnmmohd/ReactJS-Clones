@@ -8,7 +8,7 @@ import {
   cuDocument,
   cuTokensCollection,
 } from "./apis";
-import { firebase, firestore, auth, serviceWorker, } from "./configs";
+import { firebase, firestore, fieldValues, auth, serviceWorker, } from "./configs";
 import {
   setMicOn,
   setMicOff,
@@ -48,6 +48,7 @@ export {
   cuTokensCollection,
   firebase,
   firestore,
+  fieldValues,
   auth,
   serviceWorker,
   setMicOn,

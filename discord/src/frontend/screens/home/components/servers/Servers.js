@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 // import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
 import {
+  fieldValues,
+  serversCollection,
+  channelsCollection,
   getServers,
   setCurrentServer,
   getCurrentServer,
+  getCurrentUser,
 } from '../../../../../backend';
 
 import './Servers.css';
@@ -16,15 +20,41 @@ function Servers() {
   const dispatch = useDispatch();
   const servers = useSelector(getServers);
   const currentServer = useSelector(getCurrentServer);
-  const [open, setOpen] = useState(false);
+  const currentUser = useSelector(getCurrentUser);
 
   const handleOpen = () => {
-    setOpen(true);
+    // setOpen(true);
+    const name = prompt('Create your server\nYour server is where you and your friends hang out. Make yours and start talking.');
+    const now = fieldValues.serverTimestamp();
+    
+    if (name) {
+      serversCollection().add({
+        ownerID: currentUser.userID,
+        membersIDs: [currentUser.userID,],
+        name: name,
+        createdAt: now,
+        updatedAt: now,
+      }).then((ref) => {
+        
+        channelsCollection(ref.id).add({
+          category: 'Text Channel',
+          name: 'General',
+          type: 'text',
+        });
+
+        channelsCollection(ref.id).add({
+          category: 'Voice Channel',
+          name: 'General',
+          type: 'voice',
+        });
+
+      });
+    }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   // setOpen(false);
+  // };
 
   return (
     <div className='servers'>
@@ -60,7 +90,7 @@ function Servers() {
               className='servers__server'
               onClick={() => dispatch(setCurrentServer(server))}
             >
-              <p>{server.serverID.substring(0, 3)}</p>
+              <p>{server.name.split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'')}</p>
             </div>
 
             <div className='space'></div>
@@ -70,11 +100,6 @@ function Servers() {
 
       <div className='servers__add' onClick={handleOpen}>
         <AddIcon />
-        <Modal open={open} onClose={handleClose}>
-          <div>
-            Hello
-          </div>
-        </Modal>
       </div>
     </div>
   );

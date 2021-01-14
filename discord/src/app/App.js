@@ -31,7 +31,7 @@ function App() {
         dispatch(nullCurrentUser());
       }
     });
-  });
+  }, []);
 
   return (
     <div className="app">

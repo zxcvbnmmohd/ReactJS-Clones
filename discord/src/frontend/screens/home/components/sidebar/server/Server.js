@@ -21,6 +21,7 @@ import {
   removeChannel,
   clearChannels,
   setCurrentChannel,
+  updateServer,
   getChannels,
   getCurrentChannel,
   getCurrentServer,
@@ -63,10 +64,12 @@ function Server() {
         if (change.type === 'added') {
           console.log('New Server: ', channel.channelID);
           if (currentChannel === null) {
-            console.log('Yo');
             dispatch(setCurrentChannel(channel));
           }
           dispatch(addChannel(channel));
+
+          dispatch(updateServer(currentServer.categories.push(channel.category)));
+
         }
         if (change.type === 'modified') {
           console.log('Modified Server: ', channel.channelID);

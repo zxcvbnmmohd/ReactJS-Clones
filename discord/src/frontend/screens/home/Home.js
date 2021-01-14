@@ -30,7 +30,7 @@ function Home() {
 
   const serversCollection = firestore.collection('servers');
   const serversQuery = serversCollection.where(
-    'members',
+    'membersIDs',
     'array-contains-any',
     [currentUser.userID]
   );
@@ -45,8 +45,7 @@ function Home() {
           serverID: change.doc.id,
           ownerID: change.doc.data().ownerID,
           name: change.doc.data().name,
-          members: change.doc.data().members,
-          categories: change.doc.data().categories,
+          membersIDs: change.doc.data().members,
         };
 
         if (change.type === 'added') {
@@ -67,7 +66,7 @@ function Home() {
     return () => {
       unsubscribe();
     };
-  }, );
+  }, []);
 
   function renderScreen(param) {
     switch (param) {
