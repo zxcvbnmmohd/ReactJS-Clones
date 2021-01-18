@@ -9,7 +9,7 @@ import {
   updateServer,
   removeServer,
   getCurrentServer,
-  firestore
+  serversCollection,
 } from '../../../backend/';
 
 import Friends from './components/sections/friends/Friends';
@@ -28,8 +28,7 @@ function Home() {
   const currentServer = useSelector(getCurrentServer);
   const currentChannel = useSelector(getCurrentChannel);
 
-  const serversCollection = firestore.collection('servers');
-  const serversQuery = serversCollection.where(
+  const serversQuery = serversCollection().where(
     'membersIDs',
     'array-contains-any',
     [currentUser.userID]
@@ -46,6 +45,7 @@ function Home() {
           ownerID: change.doc.data().ownerID,
           name: change.doc.data().name,
           membersIDs: change.doc.data().members,
+          channels: {},
         };
 
         if (change.type === 'added') {

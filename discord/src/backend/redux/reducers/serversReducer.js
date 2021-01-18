@@ -8,15 +8,19 @@ export const serversReducer = createSlice({
   },
   reducers: {
     addServer: (state, action) => {
+      console.log('Server Added');
       state.servers.push(action.payload);
     },
     updateServer: (state, action) => {
+      console.log('Server Updated');
       state.servers[state.servers.findIndex((obj => obj.serverID === action.payload.serverID))] = action.payload;
     },
     removeServer: (state, action) => {
+      console.log('Server Removed');
       state.servers.splice(state.servers.findIndex((obj => obj.serverID === action.payload.serverID)), 1);
     },
     setCurrentServer: (state, action) => {
+      console.log('Current Server Set');
       state.currentServer = action.payload;
     },
   },

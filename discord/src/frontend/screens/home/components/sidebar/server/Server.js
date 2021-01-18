@@ -10,21 +10,18 @@ import MicOffIcon from '@material-ui/icons/MicOff';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import {
-  firestore,
   auth,
   isMicOn,
   setMicOn,
   setMicOff,
   getCurrentUser,
-  addChannel,
   updateChannel,
   removeChannel,
   clearChannels,
   setCurrentChannel,
   updateServer,
-  getChannels,
-  getCurrentChannel,
   getCurrentServer,
+  channelsCollection,
 } from '../../../../../../backend';
 
 import ChannelItem from './channelItem/ChannelItem.js';
@@ -35,15 +32,9 @@ function Server() {
   const dispatch = useDispatch();
   const mic = useSelector(isMicOn);
   const currentUser = useSelector(getCurrentUser);
-  const channels = useSelector(getChannels);
-  const currentChannel = useSelector(getCurrentChannel);
   const currentServer = useSelector(getCurrentServer);
 
-  const channelsCollection = firestore
-    .collection('servers')
-    .doc(currentServer.serverID)
-    .collection('channels');
-  const channelsQuery = channelsCollection;
+  const channelsQuery = channelsCollection(currentServer.serverID);
 
   useEffect(() => {
     console.log('useEffect');
@@ -57,26 +48,30 @@ function Server() {
           channelID: change.doc.id,
           type: change.doc.data().type,
           name: change.doc.data().name,
-          users: change.doc.data().users,
-          categories: change.doc.data().categories,
+          category: change.doc.data().category,
         };
 
         if (change.type === 'added') {
-          console.log('New Server: ', channel.channelID);
-          if (currentChannel === null) {
-            dispatch(setCurrentChannel(channel));
-          }
-          dispatch(addChannel(channel));
+          console.log('New Channel: ', channel.channelID);
+          var cs = { ...currentServer };
+        
+          // if (cs.channels[channel.category] == null) {
+          //   console.log('A');
+          //   cs.channels[channel.category] = [];
+          // } else {
+          //   console.log('B');
+          // }
 
-          dispatch(updateServer(currentServer.categories.push(channel.category)));
-
+          cs.channels[channel.category].concat(channel);
+          
+          dispatch(updateServer(cs));
         }
         if (change.type === 'modified') {
-          console.log('Modified Server: ', channel.channelID);
+          console.log('Modified Channel: ', channel.channelID);
           dispatch(updateChannel(channel));
         }
         if (change.type === 'removed') {
-          console.log('Removed Server: ', channel.channelID);
+          console.log('Removed Channel: ', channel.channelID);
           dispatch(removeChannel(channel));
         }
       });
@@ -85,22 +80,18 @@ function Server() {
     return () => {
       unsubscribe();
     };
-  }, );
+  }, []);
 
   const handleAddNewChannel = (category) => {
     const name = prompt('Create new channel');
 
     if (name) {
-      firestore
-        .collection('servers')
-        .doc(currentServer.serverID)
-        .collection('channels')
-        .add({
-          name: name,
-          members: [currentUser.userID],
-          type: 'Text',
-          category: category,
-        });
+      channelsCollection(currentServer.serverID).add({
+        name: name,
+        members: [currentUser.userID],
+        type: 'Text',
+        category: category,
+      });
     }
   };
 
@@ -112,54 +103,61 @@ function Server() {
       </div>
 
       <div className='server__mid'>
-        {currentServer.categories.map((category) => (
-          <div key={category} className='server__mid__head'>
-            <div className='server__mid__head__drop'>
-              <ExpandMoreIcon />
-              <h4>{category}</h4>
-            </div>
-            <AddIcon
-              className='server__mid__head__add'
-              onClick={() => handleAddNewChannel({ category })}
-            />
-          </div>
-        ))}
 
-        <div className='server__mid__channels'>
-          {channels.map((channel) => (
-            <ChannelItem
-              key={channel.channelID}
-              current={currentChannel === channel}
-              channel={channel}
-            />
-          ))}
-        </div>
+        {
+          Object.keys(currentServer.channels).map((key, value) => (
+            <div key={key} className='server__mid__head'>
+              <div className='server__mid__head__drop'>
+                <ExpandMoreIcon />
+                <h4>{key}</h4>
+              </div>
+              <AddIcon
+                className='server__mid__head__add'
+                onClick={() => handleAddNewChannel({ key })}
+              />
+
+            </div>
+          ))
+        }
+
+        {/* <div className='server__mid__channels'>
+          {
+            currentServer.channels.map((channel) => (
+              <ChannelItem
+                key={channel.channelID}
+                current={currentChannel === channel}
+                channel={channel}
+              />
+            ))
+          }
+        </div> */}
+
       </div>
 
       <div className='server__btm'>
         <Avatar
           className='server__btm__selfie'
           src={currentUser.selfie}
-          onClick={() => {
-            auth.signOut();
-          }}
+          onClick={() => auth.signOut()}
         />
         <div className='server__btm__texts'>
           <h5>{currentUser.name}</h5>
           <h6>#{currentUser.userID.substring(0, 5)}</h6>
         </div>
-        <div className='dashbaord__btm__icons'>
-          {mic ? (
-            <MicIcon
-              className='server__btm__icons__icon'
-              onClick={() => dispatch(setMicOff())}
-            />
-          ) : (
-            <MicOffIcon
-              className='server__btm__icons__icon'
-              onClick={() => dispatch(setMicOn())}
-            />
-          )}
+        <div className='server__btm__icons'>
+          {
+            mic ? (
+              <MicIcon
+                className='server__btm__icons__icon'
+                onClick={() => dispatch(setMicOff())}
+              />
+            ) : (
+                <MicOffIcon
+                  className='server__btm__icons__icon'
+                  onClick={() => dispatch(setMicOn())}
+                />
+              )
+          }
           <HeadsetIcon className='server__btm__icons__icon' />
           <SettingsIcon className='server__btm__icons__icon' />
         </div>
