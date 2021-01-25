@@ -33,28 +33,34 @@ function Server() {
   const currentServer = useSelector(getCurrentServer);
   const currentChannel = useSelector(getCurrentChannel);
 
-  const [channels, setChannels] = useState(new Map());
-  // const [categories, addCategory] = useState([]);
-  // const [channels, addChannel] = useState([]);
+  const [categories, setCategory] = useState([]);
+  const [channels, setChannel] = useState([]);
 
-  const addChannel = (k, v) => {
-    setChannels(prev => new Map([...prev, [k, v]]));
+  const addCategory = (v) => {
+    setCategory(categories.concat(v));
+  };
+  const addChannel = (v) => {
+    setChannel(channels.concat(v));
   };
 
-  const upsertChannel = (k, v) => {
-    setChannels(prev => new Map(prev).set(k,v));
-  };
+  // const addCategory = (k, v) => {
+  //   setCategory(prev => new Map([...prev, [k, v]]));
+  // };
 
-  const deleteChannel = (k, v) => {
-    setChannels(prev => {
-      const newChannels = new Map(prev);
-      newChannels.delete(k);
-      return newChannels;
-    });
-  };
+  // const upsertCategory = (k, v) => {
+  //   setCategory(prev => new Map(prev).set(k,v));
+  // };
 
-  const clearChannels = () => {
-    setChannels(prev => new Map(prev.clear()));
+  // const deleteCategory = (k, v) => {
+  //   setCategory(prev => {
+  //     const newchannel = new Map(prev);
+  //     newchannel.delete(k);
+  //     return newchannel;
+  //   });
+  // };
+
+  const clearCategories = () => {
+    setCategory([]);
   }
 
   const channelsQuery = channelsCollection(currentServer.serverID);
@@ -64,7 +70,7 @@ function Server() {
     var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
       console.log("Started");
 
-      clearChannels();
+      clearCategories();
 
       snapshot.docChanges().forEach((change) => {
         const channel = {
@@ -75,37 +81,33 @@ function Server() {
         };
 
         if (change.type === "added") {
-          console.log("New Channel: ", channel.channelID);
+          console.log("New Category: ", channel.channelID);
 
-          if (channels != null) {
-            if (channels.has(channel.cetegory)) {
-              var channels = channels.get(channel.category);
-              channels.concat(channel);
-              addChannel(channel.category, channels);
-              console.log('Added to existing cateogry');
+          if (categories != null) {
+            if (categories.includes(channel.category)) {
+              console.log('Category Exists');
             } else {
-              addChannel(channel.category, [channel]);
-              console.log('Added to new cateogry');
+              addCategory(channel.category);
+              console.log('Added to new category');
             }
           } else {
-            addChannel(channel.category, [channel]);
-            console.log('Added to existing cateogry 2');
-            // console.log(channels.size);
+            addCategory(channel.category);
+            console.log('Added to existing category 2');
+            // console.log(channel.size);
           }
 
-          // dispatch(updateServer(cs));
-          dispatch(setCurrentChannel(channel));
+          addChannel(channel);
 
-          
-          // console.log(channels.get(channel.category));
+          // dispatch(updateServer(cs));
+          // dispatch(setCurrentChannel(channel));      
         }
         if (change.type === "modified") {
-          console.log("Modified Channel: ", channel.channelID);
-          // dispatch(updateChannel(channel));
+          console.log("Modified Category: ", channel.CategoryID);
+          // dispatch(updateCategory(Category));
         }
         if (change.type === "removed") {
-          console.log("Removed Channel: ", channel.channelID);
-          // dispatch(removeChannel(channel));
+          console.log("Removed Category: ", channel.CategoryID);
+          // dispatch(removeCategory(Category));
         }
       });
     });
@@ -115,8 +117,8 @@ function Server() {
     };
   }, []);
 
-  const handleAddNewChannel = (category) => {
-    const name = prompt("Create new channel");
+  const handleAddNewCategory = (category) => {
+    const name = prompt("Create new Category");
 
     if (name) {
       channelsCollection(currentServer.serverID).add({
@@ -136,7 +138,7 @@ function Server() {
       </div>
 
       <div className="server__mid">
-        {[...channels.keys()].map(key => (
+        {categories.map(key => (
           <div key={key} className="server__mid__head">
             <div className="server__mid__head__drop">
               <ExpandMoreIcon />
@@ -144,14 +146,14 @@ function Server() {
             </div>
             <AddIcon
               className="server__mid__head__add"
-              onClick={() => handleAddNewChannel({ key })}
+              onClick={() => handleAddNewCategory({ key })}
             />
             {
-             channels.get(key).map(channel => {
+             channels.map(channel => {
               <ChannelItem
-                  key={channel.channelID}
+                  key={channel.CategoryID}
                   current={currentChannel === channel}
-                  channel={channel}
+                  Category={channel}
                 />
              }) 
             }
