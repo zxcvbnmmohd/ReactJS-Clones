@@ -19,6 +19,10 @@ export const serversReducer = createSlice({
       console.log('Server Removed');
       state.servers.splice(state.servers.findIndex((obj => obj.serverID === action.payload.serverID)), 1);
     },
+    clearServers: (state, action) => {
+      console.log('Servers Cleared');
+      state.servers = [];
+    },
     setCurrentServer: (state, action) => {
       console.log('Current Server Set');
       state.currentServer = action.payload;
@@ -30,6 +34,7 @@ export const {
   addServer,
   updateServer,
   removeServer,
+  clearServers,
   setCurrentServer,
 } = serversReducer.actions;
 

@@ -14,7 +14,7 @@ import {
   isMicOn,
   setMicOn,
   setMicOff,
-  setCurrentChannel,
+  // setCurrentChannel,
   getCurrentChannel,
   getCurrentUser,
   getCurrentServer,
@@ -33,35 +33,15 @@ function Server() {
   const currentServer = useSelector(getCurrentServer);
   const currentChannel = useSelector(getCurrentChannel);
 
-  const [categories, setCategory] = useState([]);
   const [channels, setChannel] = useState([]);
 
-  const addCategory = (v) => {
-    setCategory(categories.concat(v));
-  };
-  const addChannel = (v) => {
-    setChannel(channels.concat(v));
+  const addChannel = (key, c) => {
+    setChannel((arr) => [...arr, { key: key, name: c.category, channels: [c] }]);
   };
 
-  // const addCategory = (k, v) => {
-  //   setCategory(prev => new Map([...prev, [k, v]]));
-  // };
-
-  // const upsertCategory = (k, v) => {
-  //   setCategory(prev => new Map(prev).set(k,v));
-  // };
-
-  // const deleteCategory = (k, v) => {
-  //   setCategory(prev => {
-  //     const newchannel = new Map(prev);
-  //     newchannel.delete(k);
-  //     return newchannel;
-  //   });
-  // };
-
-  const clearCategories = () => {
-    setCategory([]);
-  }
+  const clearChannels = () => {
+    setChannel([]);
+  };
 
   const channelsQuery = channelsCollection(currentServer.serverID);
 
@@ -70,9 +50,10 @@ function Server() {
     var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
       console.log("Started");
 
-      clearCategories();
+      clearChannels();
 
       snapshot.docChanges().forEach((change) => {
+        var i = 0;
         const channel = {
           channelID: change.doc.id,
           type: change.doc.data().type,
@@ -81,33 +62,18 @@ function Server() {
         };
 
         if (change.type === "added") {
-          console.log("New Category: ", channel.channelID);
+          console.log("New Category: ", channel.category);
+          console.log("New Channel: ", channel.name);
 
-          if (categories != null) {
-            if (categories.includes(channel.category)) {
-              console.log('Category Exists');
-            } else {
-              addCategory(channel.category);
-              console.log('Added to new category');
-            }
-          } else {
-            addCategory(channel.category);
-            console.log('Added to existing category 2');
-            // console.log(channel.size);
-          }
-
-          addChannel(channel);
-
-          // dispatch(updateServer(cs));
-          // dispatch(setCurrentChannel(channel));      
+          addChannel(i, channel);
+          console.log('STATE: ', channels);
+          i++;
         }
         if (change.type === "modified") {
-          console.log("Modified Category: ", channel.CategoryID);
-          // dispatch(updateCategory(Category));
+          console.log("Modified Category: ", channel.category);
         }
         if (change.type === "removed") {
-          console.log("Removed Category: ", channel.CategoryID);
-          // dispatch(removeCategory(Category));
+          console.log("Removed Category: ", channel.category);
         }
       });
     });
@@ -138,25 +104,27 @@ function Server() {
       </div>
 
       <div className="server__mid">
-        {categories.map(key => (
-          <div key={key} className="server__mid__head">
-            <div className="server__mid__head__drop">
-              <ExpandMoreIcon />
-              <h4>{key}</h4>
+        {channels.map((category) => (
+          <div>
+            <div key={category.key} className="server__mid__head">
+              <div className="server__mid__head__drop">
+                <ExpandMoreIcon />
+                <h4>{category.name}</h4>
+              </div>
+              <AddIcon
+                className="server__mid__head__add"
+                onClick={() => handleAddNewCategory({ category })}
+              />
+              {category.channels.map((channel) => {
+              <span key={channel.channelID}>#213</span>;
+              // <ChannelItem
+              //   // key={channel.categoryID}
+              //   current={false}
+              //   channel={channel}
+              // />;
+            })}
             </div>
-            <AddIcon
-              className="server__mid__head__add"
-              onClick={() => handleAddNewCategory({ key })}
-            />
-            {
-             channels.map(channel => {
-              <ChannelItem
-                  key={channel.CategoryID}
-                  current={currentChannel === channel}
-                  Category={channel}
-                />
-             }) 
-            }
+            
           </div>
         ))}
       </div>

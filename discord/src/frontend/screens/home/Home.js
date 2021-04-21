@@ -8,6 +8,7 @@ import {
   addServer,
   updateServer,
   removeServer,
+  clearServers,
   getCurrentServer,
   serversCollection,
 } from '../../../backend/';
@@ -38,6 +39,7 @@ function Home() {
     console.log('useEffect');
     const unsubscribe = serversQuery.onSnapshot((snapshot) => {
       console.log('Started');
+      dispatch(clearServers([]));
 
       snapshot.docChanges().forEach((change) => {
         const server = {
