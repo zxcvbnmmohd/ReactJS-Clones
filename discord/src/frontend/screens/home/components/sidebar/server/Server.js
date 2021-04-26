@@ -10,15 +10,15 @@ import MicOffIcon from "@material-ui/icons/MicOff";
 import SettingsIcon from "@material-ui/icons/Settings";
 
 import {
-  auth,
-  isMicOn,
-  setMicOn,
-  setMicOff,
-  // setCurrentChannel,
-  getCurrentChannel,
-  getCurrentUser,
-  getCurrentServer,
-  channelsCollection,
+	auth,
+	isMicOn,
+	setMicOn,
+	setMicOff,
+	setCurrentChannel,
+	getCurrentChannel,
+	getCurrentUser,
+	getCurrentServer,
+	channelsCollection,
 } from "../../../../../../backend";
 
 import ChannelItem from "./channelItem/ChannelItem.js";
@@ -26,137 +26,155 @@ import ChannelItem from "./channelItem/ChannelItem.js";
 import "./Server.css";
 
 function Server() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const mic = useSelector(isMicOn);
-  const currentUser = useSelector(getCurrentUser);
-  const currentServer = useSelector(getCurrentServer);
-  const currentChannel = useSelector(getCurrentChannel);
+	const mic = useSelector(isMicOn);
+	const currentUser = useSelector(getCurrentUser);
+	const currentServer = useSelector(getCurrentServer);
+	const currentChannel = useSelector(getCurrentChannel);
 
-  const [channels, setChannel] = useState([]);
+	const [channels, setChannel] = useState([]);
 
-  const addChannel = (key, c) => {
-    setChannel((arr) => [...arr, { key: key, name: c.category, channels: [c] }]);
-  };
+	const addChannel = (key, c) => {
+		setChannel((arr) => [...arr, { key: key, name: c.category, channels: [c] }]);
+	};
 
-  const clearChannels = () => {
-    setChannel([]);
-  };
+	const clearChannels = () => {
+		setChannel([]);
+	};
 
-  const channelsQuery = channelsCollection(currentServer.serverID);
 
-  useEffect(() => {
-    console.log("useEffect");
-    var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
-      console.log("Started");
+	useEffect(() => {
+		console.log("useEffect");
+		// const cS = currentServer;
 
-      clearChannels();
+		const channelsQuery = channelsCollection(currentServer.serverID);
 
-      snapshot.docChanges().forEach((change) => {
-        var i = 0;
-        const channel = {
-          channelID: change.doc.id,
-          type: change.doc.data().type,
-          name: change.doc.data().name,
-          category: change.doc.data().category,
-        };
+		var i = 0;
+		var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
+			console.log("Started");
 
-        if (change.type === "added") {
-          console.log("New Category: ", channel.category);
-          console.log("New Channel: ", channel.name);
+			clearChannels();
 
-          addChannel(i, channel);
-          console.log('STATE: ', channels);
-          i++;
-        }
-        if (change.type === "modified") {
-          console.log("Modified Category: ", channel.category);
-        }
-        if (change.type === "removed") {
-          console.log("Removed Category: ", channel.category);
-        }
-      });
-    });
+			snapshot.docChanges().forEach((change) => {
+				const channel = {
+					channelID: change.doc.id,
+					type: change.doc.data().type,
+					name: change.doc.data().name,
+					category: change.doc.data().category,
+					isPrimary: change.doc.data().isPrimary,
+				};
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+				if (change.type === "added") {
+					addChannel(i, channel);
+					if (channel.isPrimary) dispatch(setCurrentChannel(channel));
+					i++;
+				}
+				if (change.type === "modified") {
+					console.log("Modified Category: ", channel.category);
+				}
+				if (change.type === "removed") {
+					console.log("Removed Category: ", channel.category);
+				}
+			});
 
-  const handleAddNewCategory = (category) => {
-    const name = prompt("Create new Category");
+			console.log('STATE: ', channels);
+		});
 
-    if (name) {
-      channelsCollection(currentServer.serverID).add({
-        name: name,
-        members: [currentUser.userID],
-        type: "Text",
-        category: category,
-      });
-    }
-  };
+		return () => {
+			unsubscribe();
+		};
+	}, [currentServer]);
 
-  return (
-    <div className="server">
-      <div className="server__top">
-        <h5>{currentServer.name}</h5>
-        <ExpandMoreIcon />
-      </div>
+	const handleAddNewChannel = (category) => {
+		const name = prompt("Create new Channel");
 
-      <div className="server__mid">
-        {channels.map((category) => (
-          <div>
-            <div key={category.key} className="server__mid__head">
-              <div className="server__mid__head__drop">
-                <ExpandMoreIcon />
-                <h4>{category.name}</h4>
-              </div>
-              <AddIcon
-                className="server__mid__head__add"
-                onClick={() => handleAddNewCategory({ category })}
-              />
-              {category.channels.map((channel) => {
-              <span key={channel.channelID}>#213</span>;
-              // <ChannelItem
-              //   // key={channel.categoryID}
-              //   current={false}
-              //   channel={channel}
-              // />;
-            })}
-            </div>
-            
-          </div>
-        ))}
-      </div>
+		if (name) {
+			channelsCollection(currentServer.serverID).add({
+				name: name,
+				members: [currentUser.userID],
+				type: "Text",
+				category: category,
+			});
+		}
+	};
 
-      <div className="server__btm">
-        <Avatar
-          className="server__btm__selfie"
-          src={currentUser.selfie}
-          onClick={() => auth.signOut()}
-        />
-        <div className="server__btm__texts">
-          <h5>{currentUser.name}</h5>
-          <h6>#{currentUser.userID.substring(0, 5)}</h6>
-        </div>
-        <div className="server__btm__icons">
-          {mic ? (
-            <MicIcon
-              className="server__btm__icons__icon"
-              onClick={() => dispatch(setMicOff())}
-            />
-          ) : (
-            <MicOffIcon
-              className="server__btm__icons__icon"
-              onClick={() => dispatch(setMicOn())}
-            />
-          )}
-          <HeadsetIcon className="server__btm__icons__icon" />
-          <SettingsIcon className="server__btm__icons__icon" />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="server">
+			<div className="server__top">
+				<h5>{currentServer.name}</h5>
+				<ExpandMoreIcon />
+			</div>
+
+			<div className="server__mid">
+				{channels.map((category) => {
+					return (<div key={category.key}>
+						<div className="server__mid__head">
+							<div className="server__mid__head__drop">
+								<ExpandMoreIcon />
+								<h4>{category.name}</h4>
+							</div>
+							<AddIcon
+								className="server__mid__head__add"
+								onClick={() => handleAddNewChannel({ category })}
+							/>
+						</div>
+
+						{category.channels.map((channel) => {
+							return (
+								<div key={channel.channelID}>
+									<ChannelItem
+										current={
+											currentChannel === null
+												? false
+												: currentChannel.channelID === channel.channelID
+										}
+										channel={channel}
+									/>
+								</div>
+							);
+						})}
+					</div>);
+				})}
+				<div className="server__mid__head">
+					<div className="server__mid__head__drop">
+						<h4>Create New Category</h4>
+					</div>
+					<AddIcon
+						className="server__mid__head__add"
+						onClick={() => handleAddNewChannel( '' )}
+					/>
+				</div>
+			</div>
+
+			<div className="server__btm">
+				<Avatar
+					className="server__btm__selfie"
+					src={currentUser.selfie}
+					onClick={() => auth.signOut()}
+				/>
+				<div className="server__btm__texts">
+					<h5>{currentUser.name}</h5>
+					<h6>#{currentUser.userID.substring(0, 5)}</h6>
+				</div>
+				<div className="server__btm__icons">
+					{mic ? (
+						<MicIcon
+							className="server__btm__icons__icon"
+							onClick={() => dispatch(setMicOff())}
+						/>
+					) : (
+						<MicOffIcon
+							className="server__btm__icons__icon"
+							onClick={() => dispatch(setMicOn())}
+						/>
+					)}
+					<HeadsetIcon className="server__btm__icons__icon" />
+					<SettingsIcon className="server__btm__icons__icon" />
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default Server;

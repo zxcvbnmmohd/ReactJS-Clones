@@ -35,11 +35,12 @@
     line-height: 20px;
 }
 
-.channelItem__hash {
+.channelItem__icon {
     font-size: 25px;
     font-weight: 500;
     vertical-align: middle;
     color: #72767D;
+	margin-right: 5px;
 }
 
 .channelItem__name {

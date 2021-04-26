@@ -1,4 +1,4 @@
-.channel {
+.textChannel {
     background-color: #36393F;
     color: white;
     display: flex;
@@ -8,7 +8,7 @@
     height: 100vh;
 }
 
-.channel__head {
+.textChannel__head {
     height: 25px;
     display: flex;
     justify-content: space-between;
@@ -18,12 +18,23 @@
     padding: 15px;
 }
 
-.channel__messages {
+.textChannel__head__title {
+	vertical-align: middle;
+}
+
+.textChannel__head__icon {
+	vertical-align: middle;
+    margin-right: 5px;
+	font-size: 20px;
+    color: #72767D;
+}
+
+.textChannel__messages {
     flex: 1;
     padding: 15px;
 }
 
-.channel__textField {
+.textChannel__textField {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -39,18 +50,18 @@
     padding-right: 15px;
 }
 
-.channel__textField > .MuiSvgIcon-root {
+.textChannel__textField > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 }
 
-.channel__textField > form {
+.textChannel__textField > form {
     flex: 1;
     margin-left: 15px;
 }
 
-.channel__textField > form > input {
+.textChannel__textField > form > input {
     width: 100%;
     background: transparent;
     border: none;
@@ -60,25 +71,25 @@
     color: white;
 }
 
-.channel__textField__button {
+.textChannel__textField__button {
     display: none;
 }
 
-.channel__textField__options > .MuiSvgIcon-root {
+.textChannel__textField__options > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 } 
 
-/* .channel__textField__box {
+/* .textChannel__textField__box {
 } */
 
-.channel__head__actions > .MuiSvgIcon-root {
+.textChannel__head__actions > .MuiSvgIcon-root {
     cursor: pointer;
     padding: 7.5px;
     color: #B9BBBE;
 } 
 
-.channel__head__actions > .MuiSvgIcon-root:hover {
+.textChannel__head__actions > .MuiSvgIcon-root:hover {
     color: #FFF;
 } 
