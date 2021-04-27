@@ -118,7 +118,7 @@
 }
 
 .dashboard__btm__texts > h5 {
-    overflow: hidden;
+    /* overflow: ; */
     text-overflow: ellipsis;
     color: white;
 }

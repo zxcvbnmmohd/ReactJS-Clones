@@ -87,7 +87,7 @@ function Dashboard() {
           }}
         />
         <div className='dashboard__btm__texts'>
-          <h5>{user.name}</h5>
+          <h6>{user.name}</h6>
           <h6>#{user.userID.substring(0, 5)}</h6>
         </div>
         <div className='dashbaord__btm__icons'>
