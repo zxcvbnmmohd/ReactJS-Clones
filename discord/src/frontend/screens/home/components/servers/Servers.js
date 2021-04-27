@@ -23,7 +23,6 @@ function Servers() {
 	const currentUser = useSelector(getCurrentUser);
 
 	const handleOpen = () => {
-		// setOpen(true);
 		const name = prompt('Create your server\nYour server is where you and your friends hang out. Make yours and start talking.');
 		const now = fieldValues.serverTimestamp();
 
@@ -58,10 +57,6 @@ function Servers() {
 			});
 		}
 	};
-
-	// const handleClose = () => {
-	//   // setOpen(false);
-	// };
 
 	return (
 		<div className='servers'>

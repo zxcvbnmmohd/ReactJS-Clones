@@ -22,7 +22,7 @@ function TextChannel() {
 	const currentServer = useSelector(getCurrentServer);
 	const [msg, setMsg] = useState('');
 
-	const msgsCollection = firestore.collection('servers').doc(currentServer.serverID).collection('channels').doc(currentChannel.channelID).collection('messages');
+	const msgsCollection = firestore.collection('servers').doc(currentServer.serverID).collection(currentChannel.category).doc(currentChannel.channelID).collection('messages');
 	const msgsQuery = msgsCollection.orderBy('createdAt');
 
 	const [messages] = useCollectionData(msgsQuery, { idField: 'msgID' });
@@ -46,11 +46,12 @@ function TextChannel() {
 		<div className='textChannel'>
 			<div className='textChannel__head'>
 				<div className='textChannel__head__title'>
-					<h5>{
-						currentChannel.type === 'text'
+					<h5>
+						{currentChannel.type === 'text'
 							? <span className="channel__head__icon">#</span>
-							: <VolumeUpIcon className="channel__head__icon" />
-					} {currentChannel.name}</h5>
+							: <VolumeUpIcon className="channel__head__icon" />}
+						{currentChannel.name}
+					</h5>
 				</div>
 				<div className='textChannel__head__actions'>
 					<NotificationsIcon />
