@@ -39,17 +39,21 @@ function Servers() {
 				createdAt: now,
 				updatedAt: now,
 			}).then((ref) => {
-				channelsCollection(ref.id).add({
+				channelsCollection(ref.id, 'Text Channel').add({
 					category: 'Text Channel',
 					name: 'General',
 					type: 'text',
 					isPrimary: true,
+					createdAt: now,
+					updatedAt: now,
 				});
-				channelsCollection(ref.id).add({
+				channelsCollection(ref.id, 'Voice Channel').add({
 					category: 'Voice Channel',
 					name: 'General',
 					type: 'voice',
 					isPrimary: false,
+					createdAt: now,
+					updatedAt: now,
 				});
 			});
 		}

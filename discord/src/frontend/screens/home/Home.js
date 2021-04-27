@@ -49,6 +49,7 @@ function Home() {
 					ownerID: change.doc.data().ownerID,
 					name: change.doc.data().name,
 					membersIDs: change.doc.data().members,
+					categories: change.doc.data().categories,
 					channels: {},
 				};
 

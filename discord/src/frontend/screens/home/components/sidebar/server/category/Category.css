@@ -1,0 +1,28 @@
+.category__mid {
+    padding: 10px;
+    flex: 1;
+}
+
+.category__mid__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8E9297;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.category__mid__head__drop {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category__mid__head__add {
+    cursor: pointer;
+}
+
+.category__mid__head__add:hover {
+    color: #FFF;
+}

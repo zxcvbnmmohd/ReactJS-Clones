@@ -4,7 +4,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 
-import { setCurrentChannel } from "../../../../../../../backend";
+import { setCurrentChannel } from "../../../../../../../../backend";
 
 import "./ChannelItem.css";
 
