@@ -6,6 +6,7 @@ import {
 	getCurrentUser,
 	setCurrentUser,
 	nullCurrentUser,
+	readCurrentUserDocument,
 } from "../backend";
 
 import { Auth, Home } from "../frontend/screens";
@@ -17,14 +18,15 @@ function App() {
 	const currentUser = useSelector(getCurrentUser);
 
 	useEffect(() => {
-		auth.onAuthStateChanged((onUser) => {
+		auth.onAuthStateChanged(async (onUser) => {
 			if (onUser) {
+				const doc = await readCurrentUserDocument;
 				dispatch(
 					setCurrentUser({
-						userID: onUser.uid,
-						selfie: onUser.photoURL,
-						email: onUser.email,
-						name: onUser.displayName,
+						userID: doc.id,
+						selfie: doc.data().selfie,
+						email: doc.data().email,
+						name: doc.data().name,
 					})
 				);
 			} else {

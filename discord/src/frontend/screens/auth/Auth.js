@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { auth } from '../../../backend';
+import { auth, createCurrentUserDocument, } from '../../../backend';
 
 import Login from './login/Login';
 import Register from './register/Register';
@@ -32,7 +32,15 @@ function Auth() {
         auth.createUserWithEmailAndPassword(email, password)
             .then(res => {
                 console.log('User Registered');
-                if (res.user) console.log(res.user.uid);
+                if (res.user) {
+                    console.log(res.user.uid);
+                    createCurrentUserDocument({
+                        selfie: '',
+                        name: '',
+                        username: username,
+                        email: email,
+                    });
+                }
             });
             // .catch((err) => setError(err));
     };
