@@ -20,7 +20,8 @@ function App() {
 	useEffect(() => {
 		auth.onAuthStateChanged(async (onUser) => {
 			if (onUser) {
-				const doc = await readCurrentUserDocument;
+				const doc = await readCurrentUserDocument();
+
 				dispatch(
 					setCurrentUser({
 						userID: doc.id,

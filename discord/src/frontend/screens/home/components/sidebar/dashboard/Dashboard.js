@@ -22,7 +22,7 @@ import './Dashboard.css';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const user = useSelector(getCurrentUser);
+  const currentUser = useSelector(getCurrentUser);
   const currentPage = useSelector(getCurrentPage);
   const mic = useSelector(isMicOn);
 
@@ -81,14 +81,14 @@ function Dashboard() {
       <div className='dashboard__btm'>
         <Avatar
           className='dashboard__btm__selfie'
-          src={user.selfie}
+          src={currentUser.selfie}
           onClick={() => {
             auth.signOut();
           }}
         />
         <div className='dashboard__btm__texts'>
-          <h6>{user.name}</h6>
-          <h6>#{user.userID.substring(0, 5)}</h6>
+          <h5>{currentUser.email}</h5>
+          <h6>#{currentUser.userID}</h6>
         </div>
         <div className='dashbaord__btm__icons'>
           {mic ? (

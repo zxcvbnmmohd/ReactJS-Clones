@@ -1,139 +1,143 @@
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    width: 240px;
-    height: 100vh;
-    background-color: #2F3136;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 240px;
+  height: 100vh;
+  background-color: #2f3136;
+  color: white;
 }
 
 .dashboard__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #26282c;
-    padding: 15px;
-    height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #26282c;
+  padding: 15px;
+  height: 25px;
 }
 
 .dashboard__top > form {
-    flex: 1;
+  flex: 1;
 }
 
 .dashboard__top > form > input {
-    width: 100%;
-    height: 25px;
-    background: transparent;
-    border: none;
-    outline-width: 0;
-    font-size: 12.5px;
-    font-weight: bold;
-    background-color: #202225;
-    color: #72767D;
-    border-radius: 5px;
-    box-shadow: inset 0px 0px 2px #000000;
+  width: 100%;
+  height: 25px;
+  background: transparent;
+  border: none;
+  outline-width: 0;
+  font-size: 12.5px;
+  font-weight: bold;
+  background-color: #202225;
+  color: #72767d;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 2px #000000;
 }
 
 .dashboard__top > form > button {
-    display: none;
+  display: none;
 }
 
 .dashboard__mid {
-    padding: 10px;
-    flex: 1;
+  padding: 10px;
+  flex: 1;
 }
 
 .dashboard__mid__actions__action {
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .dashboard__mid__actions__action:hover {
-    background-color: #3A3C43;
+  background-color: #3a3c43;
 }
 
 .dashboard__mid__actions__actionActive {
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #3A3C43;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #3a3c43;
 }
 
 .dashboard__mid__actions__action > h4 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .dashboard__mid__actions__actionActive > h4 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .dashboard__mid__dms {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #8E9297;
-    margin-top: 25px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8e9297;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .dashboard__mid__dms__add {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .dashboard__mid__dms__add:hover {
-    color: #FFF;
+  color: #fff;
 }
 
 .dashboard_channels {
-    display: flex;
-    margin-bottom: 20px;
+  display: flex;
+  margin-bottom: 20px;
 }
 
 .dashboard__btm {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #292B2F;
-    padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #292b2f;
+  padding: 10px;
 }
 
 .dashboard__btm__selfie {
-    cursor: pointer;
+  cursor: pointer;
 }
 
- .dashboard__btm__texts {
-     flex: 1;
-     text-align: left;
-     padding-left: 10px;
+.dashboard__btm__texts {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .dashboard__btm__texts > h5 {
-    /* overflow: ; */
-    text-overflow: ellipsis;
-    color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
 }
 
 .dashboard__btm__texts > h6 {
-    color: #B9BBBE;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: #b9bbbe;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dashboard__btm__icons {
-    color: #B8BABD;
+  color: #b8babd;
 }
 
 .dashboard__btm__icons__icon {
-    padding: 2.5px;
-    cursor: pointer;
-} 
+  padding: 2.5px;
+  cursor: pointer;
+}
