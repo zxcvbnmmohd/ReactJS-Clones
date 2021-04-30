@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Avatar } from '@material-ui/core';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import AddIcon from '@material-ui/icons/Add';
-import HeadsetIcon from '@material-ui/icons/Headset';
-import MicIcon from '@material-ui/icons/Mic';
-import MicOffIcon from '@material-ui/icons/MicOff';
-import SettingsIcon from '@material-ui/icons/Settings';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Avatar } from '@material-ui/core'
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
+import AddIcon from '@material-ui/icons/Add'
+import HeadsetIcon from '@material-ui/icons/Headset'
+import MicIcon from '@material-ui/icons/Mic'
+import MicOffIcon from '@material-ui/icons/MicOff'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 import {
   auth,
@@ -16,15 +16,15 @@ import {
   getCurrentPage,
   setCurrentPage,
   getCurrentUser,
-} from '../../../../../../backend';
+} from '../../../../../../backend'
 
-import './Dashboard.css';
+import './Dashboard.css'
 
 function Dashboard() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector(getCurrentUser);
-  const currentPage = useSelector(getCurrentPage);
-  const mic = useSelector(isMicOn);
+  const dispatch = useDispatch()
+  const currentUser = useSelector(getCurrentUser)
+  const currentPage = useSelector(getCurrentPage)
+  const mic = useSelector(isMicOn)
 
   return (
     <div className='dashboard'>
@@ -83,7 +83,7 @@ function Dashboard() {
           className='dashboard__btm__selfie'
           src={currentUser.selfie}
           onClick={() => {
-            auth.signOut();
+            auth.signOut()
           }}
         />
         <div className='dashboard__btm__texts'>
@@ -107,7 +107,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

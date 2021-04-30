@@ -25,8 +25,8 @@ import {
   getServers,
   getCurrentServer,
   serversReducer,
-} from './reducers';
-import store from './store';
+} from './reducers'
+import store from './store'
 
 export {
   setMicOn,
@@ -56,4 +56,4 @@ export {
   getCurrentServer,
   serversReducer,
   store,
-};
+}

@@ -1,9 +1,9 @@
-import React from 'react';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import React from 'react'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 
-import './Settings.css';
+import './Settings.css'
 
 function Settings() {
     return (

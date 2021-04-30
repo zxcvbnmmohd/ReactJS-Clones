@@ -1,8 +1,8 @@
 
-import React from 'react';
-import { Avatar } from '@material-ui/core';
+import React from 'react'
+import { Avatar } from '@material-ui/core'
 
-import './Message.css';
+import './Message.css'
 
 function Message(props) {
     return (

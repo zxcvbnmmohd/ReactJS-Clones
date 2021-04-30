@@ -4,19 +4,22 @@ import {
   createServerDocument,
   readServerDocument,
   updateServerDocument,
+  deleteServerDocument,
+  serversQuery,
   channelsCollection,
   channelDocument,
   createChannelDocument,
   readChannelDocument,
   updateChannelDocument,
   deleteChannelDocument,
+  channelsQuery,
   msgsCollection,
   msgDocument,
   createMessageDocument,
   readMessageDocument,
   updateMessageDocument,
   deleteMessageDocument,
-} from "./servers_api";
+} from "./servers_api"
 import {
   usersCollection,
   userDocument,
@@ -29,7 +32,7 @@ import {
   readCurrentUserDocument,
   updateCurrentUserDocument,
   deleteCurrentUserDocument,
-} from "./users_api";
+} from "./users_api"
 
 export {
   serversCollection,
@@ -37,12 +40,15 @@ export {
   createServerDocument,
   readServerDocument,
   updateServerDocument,
+  deleteServerDocument,
+  serversQuery,
   channelsCollection,
   channelDocument,
   createChannelDocument,
   readChannelDocument,
   updateChannelDocument,
   deleteChannelDocument,
+  channelsQuery,
   msgsCollection,
   msgDocument,
   createMessageDocument,
@@ -60,4 +66,4 @@ export {
   readCurrentUserDocument,
   updateCurrentUserDocument,
   deleteCurrentUserDocument,
-};
+}

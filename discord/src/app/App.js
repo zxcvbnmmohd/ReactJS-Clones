@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 import {
 	auth,
@@ -7,20 +7,20 @@ import {
 	setCurrentUser,
 	nullCurrentUser,
 	readCurrentUserDocument,
-} from "../backend";
+} from "../backend"
 
-import { Auth, Home } from "../frontend/screens";
+import { Auth, Home } from "../frontend/screens"
 
-import "./App.css";
+import "./App.css"
 
 function App() {
-	const dispatch = useDispatch();
-	const currentUser = useSelector(getCurrentUser);
+	const dispatch = useDispatch()
+	const currentUser = useSelector(getCurrentUser)
 
 	useEffect(() => {
 		auth.onAuthStateChanged(async (onUser) => {
 			if (onUser) {
-				const doc = await readCurrentUserDocument();
+				const doc = await readCurrentUserDocument()
 
 				dispatch(
 					setCurrentUser({
@@ -29,24 +29,22 @@ function App() {
 						email: doc.data().email,
 						name: doc.data().name,
 					})
-				);
+				)
 			} else {
-				dispatch(nullCurrentUser());
+				dispatch(nullCurrentUser())
 			}
-		});
-	}, []);
+		})
+	}, [])
 
 	return (
 		<div className="app">
-			{currentUser ? (
-				<>
-					<Home />
-				</>
-			) : (
-				<Auth />
-			)}
+			{
+				currentUser
+					? <Home />
+					: <Auth />
+			}
 		</div>
-	);
+	)
 }
 
-export default App;
+export default App

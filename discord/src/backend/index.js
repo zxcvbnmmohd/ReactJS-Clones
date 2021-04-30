@@ -4,12 +4,15 @@ import {
 	createServerDocument,
 	readServerDocument,
 	updateServerDocument,
+	deleteServerDocument,
+	serversQuery,
 	channelsCollection,
 	channelDocument,
 	createChannelDocument,
 	readChannelDocument,
 	updateChannelDocument,
 	deleteChannelDocument,
+	channelsQuery,
 	msgsCollection,
 	msgDocument,
 	createMessageDocument,
@@ -27,14 +30,14 @@ import {
 	readCurrentUserDocument,
 	updateCurrentUserDocument,
 	deleteCurrentUserDocument,
-} from "./apis";
+} from "./apis"
 import {
 	firebase,
 	firestore,
 	fieldValues,
 	auth,
 	serviceWorker,
-} from "./configs";
+} from "./configs"
 import {
 	setMicOn,
 	setMicOff,
@@ -63,19 +66,22 @@ import {
 	getCurrentServer,
 	serversReducer,
 	store,
-} from "./redux/";
+} from "./redux/"
 export {
 	serversCollection,
 	serverDocument,
 	createServerDocument,
 	readServerDocument,
 	updateServerDocument,
+	deleteServerDocument,
+	serversQuery,
 	channelsCollection,
 	channelDocument,
 	createChannelDocument,
 	readChannelDocument,
 	updateChannelDocument,
 	deleteChannelDocument,
+	channelsQuery,
 	msgsCollection,
 	msgDocument,
 	createMessageDocument,
@@ -125,4 +131,4 @@ export {
 	getCurrentServer,
 	serversReducer,
 	store,
-};
+}

@@ -4,12 +4,12 @@ import appReducer, {
   setCurrentPage,
   isMicOn,
   getCurrentPage,
-} from './appReducer';
+} from './appReducer'
 import authReducer, {
   setCurrentUser,
   nullCurrentUser,
   getCurrentUser,
-} from './authReducer';
+} from './authReducer'
 import channelsReducer, {
   addChannel,
   updateChannel,
@@ -18,7 +18,7 @@ import channelsReducer, {
   clearChannels,
   getChannels,
   getCurrentChannel,
-} from './channelsReducer';
+} from './channelsReducer'
 import serversReducer, {
   addServer,
   updateServer,
@@ -27,7 +27,7 @@ import serversReducer, {
   setCurrentServer,
   getServers,
   getCurrentServer,
-} from './serversReducer';
+} from './serversReducer'
 
 export {
   setMicOn,
@@ -56,4 +56,4 @@ export {
   getServers,
   getCurrentServer,
   serversReducer,
-};
+}

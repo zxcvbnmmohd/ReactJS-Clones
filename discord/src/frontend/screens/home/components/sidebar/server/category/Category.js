@@ -1,87 +1,95 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AddIcon from "@material-ui/icons/Add";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import AddIcon from "@material-ui/icons/Add"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
 import {
 	fieldValues,
 	setCurrentChannel,
 	getCurrentChannel,
-	getCurrentUser,
 	getCurrentServer,
 	serverDocument,
 	channelsCollection,
-} from "../../../../../../../backend";
+	channelsQuery,
+} from "../../../../../../../backend"
 
-import ChannelItem from "./channelItem/ChannelItem.js";
+import ChannelItem from "./channelItem/ChannelItem.js"
 
-import "./Category.css";
+import "./Category.css"
 
 function Category({ category }) {
-	const dispatch = useDispatch();
-
-	const currentUser = useSelector(getCurrentUser);
-	const currentServer = useSelector(getCurrentServer);
-	const currentChannel = useSelector(getCurrentChannel);
-
-	const [channels, setChannel] = useState([]);
+	const dispatch = useDispatch()
+	const currentServer = useSelector(getCurrentServer)
+	const currentChannel = useSelector(getCurrentChannel)
+	const [channels, setChannel] = useState([])
 
 	const addChannel = (c) => {
 		setChannel((arr) => [
 			...arr,
 			c,
-		]);
-	};
+		])
+	}
 
 	const clearChannels = () => {
-		setChannel([]);
-	};
+		setChannel([])
+	}
+
+	// const channelsQuery = channelsCollection(currentServer.serverID, category)
 
 	useEffect(() => {
-		console.log("useEffect");
+		console.log("useEffect")
 
-		const channelsQuery = channelsCollection(currentServer.serverID, category);
+		// var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
+		// 	console.log("Started")
+		// 	console.log(category)
 
-		var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
-			console.log("Started");
-			console.log(category);
+		// 	clearChannels()
 
-			clearChannels();
+		// 	snapshot.docChanges().forEach((change) => {
+		// 		const channel = {
+		// 			channelID: change.doc.id,
+		// 			type: change.doc.data().type,
+		// 			name: change.doc.data().name,
+		// 			category: change.doc.data().category,
+		// 			isPrimary: change.doc.data().isPrimary,
+		// 		}
 
-			snapshot.docChanges().forEach((change) => {
-				const channel = {
-					channelID: change.doc.id,
-					type: change.doc.data().type,
-					name: change.doc.data().name,
-					category: change.doc.data().category,
-					isPrimary: change.doc.data().isPrimary,
-				};
+		// 		if (change.type === "added") {
+		// addChannel(channel)
+		// if (channel.isPrimary) dispatch(setCurrentChannel(channel))
+		// 		}
+		// 		if (change.type === "modified") {
+		// 			console.log("Modified Category: ", channel.category)
+		// 		}
+		// 		if (change.type === "removed") {
+		// 			console.log("Removed Category: ", channel.category)
+		// 		}
+		// 	})
 
-				if (change.type === "added") {
-					addChannel(channel);
-					if (channel.isPrimary) dispatch(setCurrentChannel(channel));
-				}
-				if (change.type === "modified") {
-					console.log("Modified Category: ", channel.category);
-				}
-				if (change.type === "removed") {
-					console.log("Removed Category: ", channel.category);
-				}
-			});
+		// 	console.log("STATE: ", channels)
+		// })
 
-			console.log("STATE: ", channels);
-		});
+		const unsubscribe = channelsQuery(
+			currentServer.serverID,
+			category,
+			(channel) => {
+				addChannel(channel)
+				if (channel.isPrimary) dispatch(setCurrentChannel(channel))
+			},
+			(channel) => { },
+			(channel) => { },
+		)
 
 		return () => {
-			unsubscribe();
-		};
-	}, [currentServer]);
+			unsubscribe()
+		}
+	}, [currentServer])
 
 	const handleAddNewChannel = () => {
-		const channel = prompt("Create new Channel");
+		const channel = prompt("Create new Channel")
 
 		if (channel) {
-			const now = fieldValues.serverTimestamp();
+			const now = fieldValues.serverTimestamp()
 
 			serverDocument(currentServer.serverID).update({
 				updatedAt: now,
@@ -93,10 +101,10 @@ function Category({ category }) {
 					isPrimary: false,
 					createdAt: now,
 					updatedAt: now,
-				});
-			});
+				})
+			})
 		}
-	};
+	}
 
 	return (
 		<div className="category">
@@ -124,11 +132,11 @@ function Category({ category }) {
 								channel={channel}
 							/>
 						</div>
-					);
+					)
 				})
 			}
 		</div>
-	);
+	)
 }
 
-export default Category;
+export default Category

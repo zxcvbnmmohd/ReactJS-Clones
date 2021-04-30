@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { appReducer, authReducer, serversReducer, channelsReducer } from '../reducers';
+import { configureStore } from '@reduxjs/toolkit'
+import { appReducer, authReducer, serversReducer, channelsReducer } from '../reducers'
 
 export default configureStore({
   reducer: {
@@ -8,4 +8,4 @@ export default configureStore({
     servers: serversReducer,
     channels: channelsReducer,
   },
-});
+})

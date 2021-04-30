@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
-import { Avatar } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import HeadsetIcon from "@material-ui/icons/Headset";
-import MicIcon from "@material-ui/icons/Mic";
-import MicOffIcon from "@material-ui/icons/MicOff";
-import SettingsIcon from "@material-ui/icons/Settings";
+import { Avatar } from "@material-ui/core"
+import AddIcon from "@material-ui/icons/Add"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import HeadsetIcon from "@material-ui/icons/Headset"
+import MicIcon from "@material-ui/icons/Mic"
+import MicOffIcon from "@material-ui/icons/MicOff"
+import SettingsIcon from "@material-ui/icons/Settings"
 
 import {
 	auth,
@@ -19,24 +19,24 @@ import {
 	getCurrentServer,
 	serverDocument,
 	channelsCollection,
-} from "../../../../../../backend";
+} from "../../../../../../backend"
 
-import Category from "./category/Category.js";
+import Category from "./category/Category.js"
 
-import "./Server.css";
+import "./Server.css"
 
 function Server() {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
-	const mic = useSelector(isMicOn);
-	const currentUser = useSelector(getCurrentUser);
-	const currentServer = useSelector(getCurrentServer);
+	const mic = useSelector(isMicOn)
+	const currentUser = useSelector(getCurrentUser)
+	const currentServer = useSelector(getCurrentServer)
 
 	const handleAddNewChannel = () => {
-		const category = prompt("Create new Category");
+		const category = prompt("Create new Category")
 
 		if (category) {
-			const now = fieldValues.serverTimestamp();
+			const now = fieldValues.serverTimestamp()
 
 			serverDocument(currentServer.serverID).update({
 				categories: [...currentServer.categories, category],
@@ -49,10 +49,10 @@ function Server() {
 					isPrimary: false,
 					createdAt: now,
 					updatedAt: now,
-				});
-			});
+				})
+			})
 		}
-	};
+	}
 
 	return (
 		<div className="server">
@@ -65,7 +65,7 @@ function Server() {
 				{currentServer.categories.map((category) => {
 					return <div key={category}>
 						<Category category={category} />
-					</div>;
+					</div>
 				})}
 				<div className="server__mid__head">
 					<div className="server__mid__head__drop">
@@ -105,7 +105,7 @@ function Server() {
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default Server;
+export default Server

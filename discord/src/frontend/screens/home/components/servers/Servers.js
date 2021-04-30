@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import Modal from '@material-ui/core/Modal';
-// import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+// import Modal from '@material-ui/core/Modal'
+// import { makeStyles } from '@material-ui/core/styles'
+import AddIcon from '@material-ui/icons/Add'
 
 import {
 	fieldValues,
@@ -12,19 +12,19 @@ import {
 	setCurrentServer,
 	getCurrentServer,
 	getCurrentUser,
-} from '../../../../../backend';
+} from '../../../../../backend'
 
-import './Servers.css';
+import './Servers.css'
 
 function Servers() {
-	const dispatch = useDispatch();
-	const servers = useSelector(getServers);
-	const currentServer = useSelector(getCurrentServer);
-	const currentUser = useSelector(getCurrentUser);
+	const dispatch = useDispatch()
+	const servers = useSelector(getServers)
+	const currentServer = useSelector(getCurrentServer)
+	const currentUser = useSelector(getCurrentUser)
 
 	const handleOpen = () => {
-		const name = prompt('Create your server\nYour server is where you and your friends hang out. Make yours and start talking.');
-		const now = fieldValues.serverTimestamp();
+		const name = prompt('Create your server\nYour server is where you and your friends hang out. Make yours and start talking.')
+		const now = fieldValues.serverTimestamp()
 
 		if (name) {
 			serversCollection().add({
@@ -45,7 +45,7 @@ function Servers() {
 					isPrimary: true,
 					createdAt: now,
 					updatedAt: now,
-				});
+				})
 				channelsCollection(ref.id, 'Voice Channel').add({
 					category: 'Voice Channel',
 					name: 'General',
@@ -53,10 +53,10 @@ function Servers() {
 					isPrimary: false,
 					createdAt: now,
 					updatedAt: now,
-				});
-			});
+				})
+			})
 		}
-	};
+	}
 
 	return (
 		<div className='servers'>
@@ -92,7 +92,7 @@ function Servers() {
 
 							<div className='space'></div>
 						</div>
-					);
+					)
 				})
 			}
 
@@ -100,7 +100,7 @@ function Servers() {
 				<AddIcon />
 			</div>
 		</div>
-	);
+	)
 }
 
-export default Servers;
+export default Servers

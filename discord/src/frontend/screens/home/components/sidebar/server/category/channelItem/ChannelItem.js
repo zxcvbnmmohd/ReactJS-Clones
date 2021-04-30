@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import SettingsIcon from "@material-ui/icons/Settings";
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import React from "react"
+import { useDispatch } from "react-redux"
+import PersonAddIcon from "@material-ui/icons/PersonAdd"
+import SettingsIcon from "@material-ui/icons/Settings"
+import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 
-import { setCurrentChannel } from "../../../../../../../../backend";
+import { setCurrentChannel } from "../../../../../../../../backend"
 
-import "./ChannelItem.css";
+import "./ChannelItem.css"
 
 function ChannelItem({ current, channel }) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
 	return current ? (
 		<div
@@ -45,7 +45,7 @@ function ChannelItem({ current, channel }) {
 				<SettingsIcon className="channelItem__settings_icon" fontSize="small" />
 			</div>
 		</div>
-	);
+	)
 }
 
-export default ChannelItem;
+export default ChannelItem

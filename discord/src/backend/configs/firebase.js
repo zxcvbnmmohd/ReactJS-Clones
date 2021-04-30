@@ -1,7 +1,7 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/auth';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/storage'
+import 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDWjeFT2yA0LdzHAdTkfl2opmicWHoTJGg',
@@ -12,12 +12,12 @@ const firebaseConfig = {
     messagingSenderId: '24370684697',
     appId: '1:24370684697:web:f3fdbe5a17ba5de4615b88',
     measurementId: 'G-E8MKK9WGZY'
-};
+}
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const firestore = firebaseApp.firestore();
-const fieldValues = firebase.firestore.FieldValue;
-const auth = firebase.auth();
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+const firestore = firebaseApp.firestore()
+const fieldValues = firebase.firestore.FieldValue
+const auth = firebase.auth()
+const googleProvider = new firebase.auth.GoogleAuthProvider()
 
-export { firebase, firestore, fieldValues, auth, googleProvider };
+export { firebase, firestore, fieldValues, auth, googleProvider }

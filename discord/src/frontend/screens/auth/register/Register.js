@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import './Register.css';
+import './Register.css'
 
 function Register(props) {
     return (

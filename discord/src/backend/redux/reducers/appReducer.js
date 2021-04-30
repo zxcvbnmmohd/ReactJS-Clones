@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const appReducer = createSlice({
     name: 'app',
@@ -8,20 +8,20 @@ export const appReducer = createSlice({
     },
     reducers: {
         setMicOn: (state) => {
-            state.mic = true;
+            state.mic = true
         },
         setMicOff: (state) => {
-            state.mic = false;
+            state.mic = false
         },
         setCurrentPage: (state, action) => {
-            state.currentPage = action.payload;
+            state.currentPage = action.payload
         }
     },
-});
+})
 
-export const { setMicOn, setMicOff, setCurrentPage } = appReducer.actions;
+export const { setMicOn, setMicOff, setCurrentPage } = appReducer.actions
 
-export const isMicOn = (state) => state.app.mic;
-export const getCurrentPage = (state) => state.app.currentPage;
+export const isMicOn = (state) => state.app.mic
+export const getCurrentPage = (state) => state.app.currentPage
 
-export default appReducer.reducer;
+export default appReducer.reducer

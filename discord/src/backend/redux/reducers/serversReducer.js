@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const serversReducer = createSlice({
   name: 'servers',
@@ -8,27 +8,27 @@ export const serversReducer = createSlice({
   },
   reducers: {
     addServer: (state, action) => {
-      console.log('Server Added');
-      state.servers.push(action.payload);
+      console.log('Server Added')
+      state.servers.push(action.payload)
     },
     updateServer: (state, action) => {
-      console.log('Server Updated');
-      state.servers[state.servers.findIndex((obj => obj.serverID === action.payload.serverID))] = action.payload;
+      console.log('Server Updated')
+      state.servers[state.servers.findIndex((obj => obj.serverID === action.payload.serverID))] = action.payload
     },
     removeServer: (state, action) => {
-      console.log('Server Removed');
-      state.servers.splice(state.servers.findIndex((obj => obj.serverID === action.payload.serverID)), 1);
+      console.log('Server Removed')
+      state.servers.splice(state.servers.findIndex((obj => obj.serverID === action.payload.serverID)), 1)
     },
     clearServers: (state, action) => {
-      console.log('Servers Cleared');
-      state.servers = [];
+      console.log('Servers Cleared')
+      state.servers = []
     },
     setCurrentServer: (state, action) => {
-      console.log('Current Server Set');
-      state.currentServer = action.payload;
+      console.log('Current Server Set')
+      state.currentServer = action.payload
     },
   },
-});
+})
 
 export const {
   addServer,
@@ -36,9 +36,9 @@ export const {
   removeServer,
   clearServers,
   setCurrentServer,
-} = serversReducer.actions;
+} = serversReducer.actions
 
-export const getServers = (state) => state.servers.servers;
-export const getCurrentServer = (state) => state.servers.currentServer;
+export const getServers = (state) => state.servers.servers
+export const getCurrentServer = (state) => state.servers.currentServer
 
-export default serversReducer.reducer;
+export default serversReducer.reducer
