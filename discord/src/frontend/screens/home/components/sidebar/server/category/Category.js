@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from "@material-ui/icons/Add"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
@@ -9,7 +9,7 @@ import {
 	updateChannel,
 	removeChannel,
 	getChannels,
-	setCurrentChannel,
+	setCurrentChannel, 
 	getCurrentChannel,
 	getCurrentServer,
 	serverDocument,
