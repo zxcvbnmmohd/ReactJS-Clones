@@ -5,6 +5,10 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
 import {
 	fieldValues,
+	addChannel,
+	updateChannel,
+	removeChannel,
+	getChannels,
 	setCurrentChannel,
 	getCurrentChannel,
 	getCurrentServer,
@@ -21,69 +25,30 @@ function Category({ category }) {
 	const dispatch = useDispatch()
 	const currentServer = useSelector(getCurrentServer)
 	const currentChannel = useSelector(getCurrentChannel)
-	const [channels, setChannel] = useState([])
-
-	const addChannel = (c) => {
-		setChannel((arr) => [
-			...arr,
-			c,
-		])
-	}
-
-	const clearChannels = () => {
-		setChannel([])
-	}
-
-	// const channelsQuery = channelsCollection(currentServer.serverID, category)
+	const channels = useSelector(getChannels)
 
 	useEffect(() => {
 		console.log("useEffect")
-
-		// var unsubscribe = channelsQuery.onSnapshot((snapshot) => {
-		// 	console.log("Started")
-		// 	console.log(category)
-
-		// 	clearChannels()
-
-		// 	snapshot.docChanges().forEach((change) => {
-		// 		const channel = {
-		// 			channelID: change.doc.id,
-		// 			type: change.doc.data().type,
-		// 			name: change.doc.data().name,
-		// 			category: change.doc.data().category,
-		// 			isPrimary: change.doc.data().isPrimary,
-		// 		}
-
-		// 		if (change.type === "added") {
-		// addChannel(channel)
-		// if (channel.isPrimary) dispatch(setCurrentChannel(channel))
-		// 		}
-		// 		if (change.type === "modified") {
-		// 			console.log("Modified Category: ", channel.category)
-		// 		}
-		// 		if (change.type === "removed") {
-		// 			console.log("Removed Category: ", channel.category)
-		// 		}
-		// 	})
-
-		// 	console.log("STATE: ", channels)
-		// })
 
 		const unsubscribe = channelsQuery(
 			currentServer.serverID,
 			category,
 			(channel) => {
-				addChannel(channel)
+				if (!channels.some(c => c.channelID === channel.channelID)) dispatch(addChannel(channel))
 				if (channel.isPrimary) dispatch(setCurrentChannel(channel))
 			},
-			(channel) => { },
-			(channel) => { },
+			(channel) => {
+				dispatch(updateChannel(channel))
+			},
+			(channel) => {
+				dispatch(removeChannel(channel))
+			},
 		)
 
 		return () => {
 			unsubscribe()
 		}
-	}, [currentServer])
+	}, [channels])
 
 	const handleAddNewChannel = () => {
 		const channel = prompt("Create new Channel")
@@ -120,7 +85,7 @@ function Category({ category }) {
 			</div>
 
 			{
-				channels.map((channel) => {
+				channels.filter(channel => channel.category.includes(category)).map((channel) => {
 					return (
 						<div key={channel.channelID}>
 							<ChannelItem

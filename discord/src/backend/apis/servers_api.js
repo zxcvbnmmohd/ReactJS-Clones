@@ -18,19 +18,16 @@ export const serversQuery = (onAdded, onModified, onRemoved) => serversCollectio
 			name: change.doc.data().name,
 			membersIDs: change.doc.data().members,
 			categories: change.doc.data().categories,
-			channels: {},
+			channels: [],
 		}
 
 		if (change.type === 'added') {
-			console.log('Server Added: ', server.serverID)
 			onAdded(server)
 		}
 		if (change.type === 'modified') {
-			console.log('Server Modified: ', server.serverID)
 			onModified(server)
 		}
 		if (change.type === 'removed') {
-			console.log('Server Removed: ', server.serverID)
 			onRemoved(server)
 		}
 	})
@@ -57,15 +54,12 @@ export const channelsQuery = (serverID, category, onAdded, onModified, onRemoved
 		}
 
 		if (change.type === "added") {
-			console.log("Added Channel: ", channel.channelID)
 			onAdded(channel)
 		}
 		if (change.type === "modified") {
-			console.log("Modified Channel: ", channel.channelID)
 			onModified(channel)
 		}
 		if (change.type === "removed") {
-			console.log("Removed Channel: ", channel.channelID)
 			onRemoved(channel)
 		}
 	})
