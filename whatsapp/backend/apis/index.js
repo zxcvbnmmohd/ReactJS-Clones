@@ -12,6 +12,17 @@ import {
     deleteCurrentUserDocument,
 } from "./users_api"
 
+import {
+    chatsCollection,
+    chatDocument,
+    createChatDocument,
+    readChatDocument,
+    updateChatDocument,
+    deleteChatDocument,
+    chatExists,
+    writeChat,
+} from "./chats_api"
+
 export {
     usersCollection,
     userDocument,
@@ -24,4 +35,12 @@ export {
     readCurrentUserDocument,
     updateCurrentUserDocument,
     deleteCurrentUserDocument,
+    chatsCollection,
+    chatDocument,
+    createChatDocument,
+    readChatDocument,
+    updateChatDocument,
+    deleteChatDocument,
+    chatExists,
+    writeChat,
 }

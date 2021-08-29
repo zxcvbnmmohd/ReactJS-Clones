@@ -1,8 +1,11 @@
-import Head from 'next/head'
-import styled from 'styled-components'
-import Sidebar from '../components/Sidebar.js'
+import React, { useEffect, useState } from 'react'
+import Head from "next/head";
+import styled from "styled-components"
+import { Sidebar, Chat, } from "../components"
 
 export default function Home() {
+  const [chat, setChat] = useState(null)
+
   return (
     <div>
       <Head>
@@ -13,10 +16,14 @@ export default function Home() {
 
       <Container>
         <Content>
-          <Sidebar />
-          <Chat>
-            Hi
-          </Chat>
+          <Sidebar currentChat={chat} setCurrentChat={(c) => setChat(c)} />
+          {
+            chat === null
+              ? <Blank>
+                <h1>Click on a chat...</h1>
+              </Blank>
+              : <Chat currentChat={chat} />
+          }
         </Content>
       </Container>
     </div>
@@ -24,23 +31,26 @@ export default function Home() {
 }
 
 const Container = styled.div`
-  margin: 0 auto;
-  width: 1400px;
-  display: grid;
-  height: 100vh;
+	margin: 0 auto;
+	width: 1400px;
+	display: grid;
+	height: 100vh;
 `
 
 const Content = styled.div`
-  background-color: #262D31;
-  box-shadow: 0px 0px 10px 1px #0B0E11;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  display: flex;
+	background-color: #262d31;
+	box-shadow: 0px 0px 10px 1px #0b0e11;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	display: flex;
 `
 
-const Chat = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const Blank = styled.div`
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
 `
+
