@@ -111,8 +111,24 @@ export default function Login() {
 
             <Container>
                 <Content>
-                    <Left></Left>
+                    <Left />
                     <Right>
+                        <form>
+                            <input type="radio" name="rg" id="register" checked />
+                            <input type="radio" name="rg" id="login" />
+
+                            <label for="register">Regiser</label>
+                            <label for="login">Login</label>
+
+                            <input className="register" type="image" placeholder="Selfie" />
+                            <input className="register" type="txt" placeholder="Full Name" />
+                            <input className="login register" type="number" placeholder="Country Code" />
+                            <input className="login register" type="tel" placeholder="Phone Number" />
+
+                            <button>Get Code</button>
+                        </form>
+                    </Right>
+                    {/* <Right>
                         <h1>Login with your phone nummber</h1>
                         <LoginForm onSubmit={onSignInSubmit}>
                             <CountryCodeInput placeholder="Country Code" value={countryCode} onChange={(s) => setCountryCode(s.target.value)} />
@@ -122,12 +138,43 @@ export default function Login() {
                             {isLoading ? <p>Authenticating....</p> : <p>Send Code</p>}
                         </LoginButton>
                         <div id="recaptcha-container"></div>
-                    </Right>
+                    </Right> */}
                 </Content>
             </Container>
         </div>
     );
 }
+
+const RadioInput = styled.input`
+    position: fixed;
+    left: -100px;
+`
+
+const RadioLabel = styled.label`
+    appearance: none;
+    background-color: $color-input;
+    display: block;
+    transition: 300ms ease;
+    border-radius: 7px;
+    border: 0;
+    max-height: 0;
+    margin: 0;
+    padding: 0 10px;
+    overflow: hidden;
+    width: 250px;
+    opacity: 0;
+    font-size: 16px;
+    text-align: center;
+    outline: 0;
+`
+
+const TextInput = styled.label`
+
+`
+
+const FormButton = styled.button`
+
+`
 
 const Container = styled.div`
 	margin: 0 auto;
@@ -163,7 +210,9 @@ const Right = styled.div`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
 	justify-content: center;
+	text-align: center;
 	width: 100%;
 	padding: 50px;
 `
