@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from "next/head"
 import styled from "styled-components"
 import { firebase, auth, createCurrentUserDocument, readCurrentUserDocument } from '.././backend'
+import '../styles/login.module.css'
 
 const recaptchaVerifier = (container, params) => {
     return new firebase.auth.RecaptchaVerifier(container, params);
@@ -113,68 +114,28 @@ export default function Login() {
                 <Content>
                     <Left />
                     <Right>
-                        <form>
-                            <input type="radio" name="rg" id="register" checked />
-                            <input type="radio" name="rg" id="login" />
 
-                            <label for="register">Regiser</label>
-                            <label for="login">Login</label>
-
-                            <input className="register" type="image" placeholder="Selfie" />
-                            <input className="register" type="txt" placeholder="Full Name" />
-                            <input className="login register" type="number" placeholder="Country Code" />
-                            <input className="login register" type="tel" placeholder="Phone Number" />
-
-                            <button>Get Code</button>
-                        </form>
                     </Right>
-                    {/* <Right>
-                        <h1>Login with your phone nummber</h1>
-                        <LoginForm onSubmit={onSignInSubmit}>
-                            <CountryCodeInput placeholder="Country Code" value={countryCode} onChange={(s) => setCountryCode(s.target.value)} />
-                            <PhoneNumberInput placeholder="Phone Number" value={phoneNumber} onChange={(s) => setPhoneNumber(s.target.value)} />
-                        </LoginForm>
-                        <LoginButton onClick={onSignInSubmit}>
-                            {isLoading ? <p>Authenticating....</p> : <p>Send Code</p>}
-                        </LoginButton>
-                        <div id="recaptcha-container"></div>
-                    </Right> */}
+                    {
+                        /*
+                        <Right>
+                            <h1>Login with your phone nummber</h1>
+                            <LoginForm onSubmit={onSignInSubmit}>
+                                <CountryCodeInput placeholder="Country Code" value={countryCode} onChange={(s) => setCountryCode(s.target.value)} />
+                                <PhoneNumberInput placeholder="Phone Number" value={phoneNumber} onChange={(s) => setPhoneNumber(s.target.value)} />
+                            </LoginForm>
+                            <LoginButton onClick={onSignInSubmit}>
+                                {isLoading ? <p>Authenticating....</p> : <p>Send Code</p>}
+                            </LoginButton>
+                            <div id="recaptcha-container"></div>
+                        </Right>
+                        */
+                    }
                 </Content>
-            </Container>
-        </div>
+            </Container >
+        </div >
     );
 }
-
-const RadioInput = styled.input`
-    position: fixed;
-    left: -100px;
-`
-
-const RadioLabel = styled.label`
-    appearance: none;
-    background-color: $color-input;
-    display: block;
-    transition: 300ms ease;
-    border-radius: 7px;
-    border: 0;
-    max-height: 0;
-    margin: 0;
-    padding: 0 10px;
-    overflow: hidden;
-    width: 250px;
-    opacity: 0;
-    font-size: 16px;
-    text-align: center;
-    outline: 0;
-`
-
-const TextInput = styled.label`
-
-`
-
-const FormButton = styled.button`
-
-`
 
 const Container = styled.div`
 	margin: 0 auto;
@@ -206,15 +167,20 @@ const Left = styled.div`
 `
 
 const Right = styled.div`
-	background-color: white;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: center;
+    flex: 1;
+    background-color: white;
+    padding: 25px;
+`
+const Form = styled.form`
+    position: absolute;
 	text-align: center;
-	width: 100%;
-	padding: 50px;
+	background: #fff;
+	width: 310px;
+	height: 470px;
+	border-radius: 5px;
+	padding: 30px 20px 0 20px;
+	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+	box-sizing: border-box;
 `
 
 const LoginForm = styled.form`
@@ -257,5 +223,4 @@ const LoginButton = styled.div`
     font-size: 25px;
     background-color: #1BBFA5;
     color: #FAFAFA;
-    
 `
