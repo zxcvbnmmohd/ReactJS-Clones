@@ -113,11 +113,11 @@ export default function Login() {
             <Container>
                 <Content>
                     <Left />
-                    <Right>
+                    {/* <Right>
 
-                    </Right>
+                    </Right> */}
                     {
-                        /*
+
                         <Right>
                             <h1>Login with your phone nummber</h1>
                             <LoginForm onSubmit={onSignInSubmit}>
@@ -129,7 +129,7 @@ export default function Login() {
                             </LoginButton>
                             <div id="recaptcha-container"></div>
                         </Right>
-                        */
+
                     }
                 </Content>
             </Container >
