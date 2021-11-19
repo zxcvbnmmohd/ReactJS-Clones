@@ -19,7 +19,7 @@ export default function HeaderLink({
 
       {showDropDownIcon ? (
         <p className="text-white font-bold self-end">
-          <ChevronDownIcon className="h-4 mb-1" />
+          <ChevronDownIcon className="h-4 -ml-1 mb-1" />
         </p>
       ) : null}
     </div>

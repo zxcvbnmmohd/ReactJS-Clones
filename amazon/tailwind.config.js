@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         amazon_blue: {
-          light: "#232F3E",
+          light: "#232F40",
           DEFAULT: "#131921",
         },
       },

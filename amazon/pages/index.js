@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
-import { Cart, HeaderLink, SearchBar } from "../components";
+import { LocationMarkerIcon, MenuIcon } from "@heroicons/react/outline";
+import { Cart, HeaderHyperLink, HeaderLink, SearchBar } from "../components";
 
 export default function Home() {
   const router = useRouter();
@@ -11,9 +11,9 @@ export default function Home() {
   useEffect(() => {});
 
   const searchFor = (item) => {
-    setSearch(item)
+    setSearch(item);
   };
-  
+
   return (
     <div className="">
       <Head>
@@ -49,6 +49,24 @@ export default function Home() {
             showDropDownIcon={false}
           />
           <Cart count={0} />
+        </div>
+        <div className="bg-amazon_blue-light flex items-center py-3 px-2 text-white">
+          <HeaderHyperLink
+            icon={<MenuIcon className="h-6 mr-1" />}
+            text="All"
+          />
+          <HeaderHyperLink text="Best Sellers" onClick={() => {}} />
+          <HeaderHyperLink text="Deals Store" onClick={() => {}} />
+          <HeaderHyperLink text="New Releases" onClick={() => {}} />
+          <HeaderHyperLink text="Prime" showDropDownIcon={true} onClick={() => {}} />
+          <HeaderHyperLink text="Customer Service" onClick={() => {}} />
+          <HeaderHyperLink text="Gift Ideas" onClick={() => {}} />
+          <HeaderHyperLink text="Electronics" onClick={() => {}} />
+          <HeaderHyperLink text="Fashion" onClick={() => {}} />
+          <HeaderHyperLink text="Home" onClick={() => {}} />
+          <HeaderHyperLink text="Books" onClick={() => {}} />
+          <HeaderHyperLink text="Toys & Games" onClick={() => {}} />
+          <HeaderHyperLink text="Computers" onClick={() => {}} />
         </div>
       </header>
 
