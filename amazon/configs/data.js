@@ -80,47 +80,47 @@ const giftsItems = [
   {
     id: 0,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-0.jpg",
+    src: "/images/gifts/gift-0.jpg",
   },
   {
     id: 1,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-1.jpg",
+    src: "/images/gifts/gift-1.jpg",
   },
   {
     id: 2,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-2.jpg",
+    src: "/images/gifts/gift-2.jpg",
   },
   {
     id: 3,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-3.jpg",
+    src: "/images/gifts/gift-3.jpg",
   },
   {
     id: 4,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-4.jpg",
+    src: "/images/gifts/gift-4.jpg",
   },
   {
     id: 5,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-5.jpg",
+    src: "/images/gifts/gift-5.jpg",
   },
   {
     id: 6,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-6.jpg",
+    src: "/images/gifts/gift-6.jpg",
   },
   {
     id: 7,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-7.jpg",
+    src: "/images/gifts/gift-7.jpg",
   },
   {
     id: 8,
     title: "Early Black Friday",
-    src: "/images/gifts/gifts-8.jpg",
+    src: "/images/gifts/gift-8.jpg",
   },
 ];
 
