@@ -1,78 +1,56 @@
-import { useState, useEffect } from "react";
-import Head from "next/head";
-import Image from "next/image";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { LocationMarkerIcon, MenuIcon } from "@heroicons/react/outline";
-import { Cart, HeaderHyperLink, HeaderLink, SearchBar } from "../components";
+import Head from "next/head";
+import { Header, HeaderSlider } from "../components/";
+import { carouselItems, specialsItems } from "../configs/data";
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {});
 
-  const searchFor = (item) => {
-    setSearch(item);
-  };
-
   return (
-    <div className="">
+    <div id="top" className="bg-background">
       <Head>
-        <title>Create Next App</title>
+        <title>Amazon | Next.JS, TailwindCSS, Firebase, Webhooks, Stripe</title>
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
-      <header className="sticky top-0 z-50">
-        <div className="flex items-center bg-amazon_blue p-2 flex-grow py-3">
-          <Image
-            className="cursor-pointer"
-            src="/images/logo-white.png"
-            width={150}
-            height={35}
-            objectFit="contain"
-            onClick={() => router.push("/")}
-          />
-          <HeaderLink
-            icon={<LocationMarkerIcon className="h-6" />}
-            topText={"Hello"}
-            btmText={"Select your address"}
-            showDropDownIcon={false}
-          />
-          <SearchBar search={searchFor} />
-          <HeaderLink
-            topText={"Hello, Sign in"}
-            btmText={"Accounts & Lists"}
-            showDropDownIcon={true}
-          />
-          <HeaderLink
-            topText={"Returns"}
-            btmText={"& Orders"}
-            showDropDownIcon={false}
-          />
-          <Cart count={0} />
-        </div>
-        <div className="bg-amazon_blue-light flex items-center py-3 px-2 text-white">
-          <HeaderHyperLink
-            icon={<MenuIcon className="h-6 mr-1" />}
-            text="All"
-          />
-          <HeaderHyperLink text="Best Sellers" onClick={() => {}} />
-          <HeaderHyperLink text="Deals Store" onClick={() => {}} />
-          <HeaderHyperLink text="New Releases" onClick={() => {}} />
-          <HeaderHyperLink text="Prime" showDropDownIcon={true} onClick={() => {}} />
-          <HeaderHyperLink text="Customer Service" onClick={() => {}} />
-          <HeaderHyperLink text="Gift Ideas" onClick={() => {}} />
-          <HeaderHyperLink text="Electronics" onClick={() => {}} />
-          <HeaderHyperLink text="Fashion" onClick={() => {}} />
-          <HeaderHyperLink text="Home" onClick={() => {}} />
-          <HeaderHyperLink text="Books" onClick={() => {}} />
-          <HeaderHyperLink text="Toys & Games" onClick={() => {}} />
-          <HeaderHyperLink text="Computers" onClick={() => {}} />
-        </div>
-      </header>
+      <Header />
+      <main className="max-w-screen-2xl mx-auto">
+        <HeaderSlider items={carouselItems} />
 
-      <main className=""></main>
+        <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52 mx-auto">
+          {specialsItems.map((item) => (
+            <div className="relative flex flex-col m-5 bg-white z-30 p-4">
+              <h1 className="text-lg font-bold mb-1">{item.title}</h1>
+              <img className="cursor-pointer" src={item.src} />
+              <p className="text-xs text-blue-700 mt-4 mb-2 line-clamp-2 cursor-pointer">
+                {item.buttonText}
+              </p>
+            </div>
+          ))}
+        </div>
 
-      <footer className=""></footer>
+        <div className="relative flex flex-col m-5 bg-white z-30 p-4">
+          <div className="flex flex-row items-center">
+            <p className="text-lg font-medium">Find the perfect gift</p>
+            <p className="ml-5 text-sm font-light text-blue-700 cursor-pointer">Shop Holiday Gifts</p>
+          </div>
+          
+          <div className="flex flex-row items-center">
+          </div>
+        </div>
+      </main>
+
+      <footer className="">
+        <div
+          className="flex py-5 bg-amazon_blue-backToTop text-white self-center cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          <p className="m-auto top-0 left-0 text-sm">Back to top</p>
+        </div>
+      </footer>
     </div>
   );
 }
