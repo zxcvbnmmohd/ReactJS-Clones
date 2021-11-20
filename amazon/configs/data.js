@@ -1,4 +1,4 @@
-const carouselItems = [
+const carousels = [
   {
     id: 0,
     src: "/images/carousel/carousel-0.jpg",
@@ -25,7 +25,7 @@ const carouselItems = [
   },
 ];
 
-const specialsItems = [
+const specials = [
   {
     id: 0,
     title: "Earyly Black Frieday is here",
@@ -76,7 +76,7 @@ const specialsItems = [
   },
 ];
 
-const giftsItems = [
+const gifts = [
   {
     id: 0,
     title: "Early Black Friday",
@@ -124,4 +124,4 @@ const giftsItems = [
   },
 ];
 
-export { carouselItems, specialsItems, giftsItems };
+export { carousels, specials, gifts };

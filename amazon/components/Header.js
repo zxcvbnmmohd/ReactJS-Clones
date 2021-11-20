@@ -1,10 +1,13 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { selectItems } from "../redux/slices/basketSlice"
 import { LocationMarkerIcon, MenuIcon } from "@heroicons/react/outline";
 import { Cart, HeaderHyperLink, HeaderLink, SearchBar } from "./";
 
 export default function Header() {
   const router = useRouter();
+  const items = useSelector(selectItems);
 
   const searchFor = (item) => {
     setSearch(item);
@@ -38,7 +41,7 @@ export default function Header() {
           btmText={"& Orders"}
           showDropDownIcon={false}
         />
-        <Cart count={0} />
+        <Cart count={items.length} />
       </div>
       <div className="flex items-center space-x-3 p-2 pl-6 bg-amazon_blue-light text-white text-sm">
         <HeaderHyperLink icon={<MenuIcon className="h-6 mr-1" />} text="All" />

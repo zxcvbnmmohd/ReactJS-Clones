@@ -12,7 +12,10 @@ module.exports = {
         },
         background: {
           DEFAULT: "#EBEDED",
-        }
+        },
+        button: {
+          DEFAULT: '#FAD714',
+        },
       },
     },
   },
