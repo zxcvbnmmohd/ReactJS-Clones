@@ -5,9 +5,10 @@ export default function HeaderLink({
   topText,
   btmText,
   showDropDownIcon,
+  onClick,
 }) {
   return (
-    <div className="flex flex-row mx-2 cursor-pointer">
+    <div className="flex flex-row mx-2 cursor-pointer" onClick={onClick}>
       {
         icon === null ? null : (<h1 className="text-white font-bold self-center">{icon}</h1>)
       }

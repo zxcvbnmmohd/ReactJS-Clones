@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/client";
 import { useSelector } from "react-redux";
 import { selectItems } from "../redux/slices/basketSlice"
 import { LocationMarkerIcon, MenuIcon } from "@heroicons/react/outline";
 import { Cart, HeaderHyperLink, HeaderLink, SearchBar } from "./";
 
 export default function Header() {
+  const [session, loading] = useSession();
   const router = useRouter();
   const items = useSelector(selectItems);
 
@@ -26,20 +28,22 @@ export default function Header() {
         />
         <HeaderLink
           icon={<LocationMarkerIcon className="h-6" />}
-          topText={"Hello"}
+          topText={'Where are you?'}
           btmText={"Select your address"}
           showDropDownIcon={false}
         />
         <SearchBar search={searchFor} />
         <HeaderLink
-          topText={"Hello, Sign in"}
+          topText={session ? `Hello, ${session.user.name}` : 'Hello'}
           btmText={"Accounts & Lists"}
           showDropDownIcon={true}
+          onClick={session ? signOut : signIn}
         />
         <HeaderLink
           topText={"Returns"}
           btmText={"& Orders"}
           showDropDownIcon={false}
+          onClick={() => router.push("/orders")}
         />
         <Cart count={items.length} />
       </div>

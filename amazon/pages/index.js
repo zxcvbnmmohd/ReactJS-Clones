@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
 import {
@@ -12,12 +10,6 @@ import {
 import { carousels, specials, gifts } from "../configs/data";
 
 export default function Home({ products }) {
-  const [session, loading] = useSession();
-
-  const router = useRouter();
-
-  useEffect(() => {});
-
   return (
     <div id="top" className="bg-background">
       <Head>
